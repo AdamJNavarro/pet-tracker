@@ -1,0 +1,30 @@
+:root {
+	--fs-xs: clamp(0.75rem, 0.894118vi + 0.53rem, 1.13rem);
+	--fs-base: clamp(1rem, 1.176471vi + 0.71rem, 1.5rem);
+	--fs-s: clamp(1.33rem, 1.576471vi + 0.94rem, 2rem);
+	--fs-m: clamp(1.78rem, 2.094118vi + 1.26rem, 2.67rem);
+	--fs-l: clamp(2.37rem, 2.8vi + 1.67rem, 3.56rem);
+	--fs-xl: clamp(3.16rem, 3.717647vi + 2.23rem, 4.74rem);
+	--fs-xxl: clamp(4.21rem, 4.964706vi + 2.97rem, 6.32rem);
+	--fs-xxxl: clamp(5.62rem, 6.611765vi + 3.97rem, 8.43rem);
+
+	--line-height: calc(2px + 2ex + 2px);
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	max-height: 100vh;
+	max-width: 100vw;
+}
