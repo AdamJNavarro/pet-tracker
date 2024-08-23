@@ -1,27 +1,23 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { Activity } from '$lib';
-	import { formatDate, type AgoFormat } from '$utils';
+	import { formatDate, get_times_breakdown, type AgoFormat } from '$utils';
 	import { onMount } from 'svelte';
 	import { form_action } from './form_action';
+	import type { PetLog } from '$db/methods';
 
-	export let action_path: string;
-	export let activity: Activity;
-	export let pet_id: number;
-	export let last_activity_time: string | null;
-	export let ago_format: AgoFormat;
+	export let petLog: PetLog;
 	export let thinking = false;
+	let ago_format: AgoFormat = 'hrs-ago';
 
-	let formatted_date: string = last_activity_time
-		? formatDate({ date: last_activity_time, format: ago_format })
+	let formatted_date: string = petLog.completed_at
+		? formatDate({ date: petLog.completed_at, format: ago_format })
 		: 'N/A';
 
 	const refresh_interval_in_mins = 5;
-
 	onMount(() => {
 		const my_interval = setInterval(() => {
-			if (last_activity_time) {
-				formatted_date = formatDate({ date: last_activity_time, format: ago_format });
+			if (petLog.completed_at) {
+				formatted_date = formatDate({ date: petLog.completed_at, format: ago_format });
 			}
 		}, 60000 * refresh_interval_in_mins);
 
@@ -32,7 +28,7 @@
 </script>
 
 <form
-	action={action_path}
+	action="?/upd_pet_log"
 	method="POST"
 	use:enhance={form_action(
 		{},
@@ -47,9 +43,7 @@
 >
 	<button class="button" disabled={thinking} type="submit">
 		<p>{formatted_date}</p>
-
-		<input name="pet_id" hidden value={pet_id} />
-		<input name="activity" hidden value={activity} />
+		<input name="log_id" hidden value={petLog.id} />
 	</button>
 </form>
 

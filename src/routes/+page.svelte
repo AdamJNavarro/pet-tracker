@@ -1,43 +1,24 @@
 <script>
-	import PetColumn from '$lib/PetColumn.svelte';
-	import TrackerColumn from '$lib/TrackerColumn.svelte';
+	import ActivityRow from '$lib/ActivityRow.svelte';
+	import PackRow from '$lib/PackRow.svelte';
 
 	export let data;
-	// $: ({ pets } = data);
-	// console.log('data', data);
 </script>
 
 <div class="layout">
-	<div class="tracker-container"><TrackerColumn /></div>
-	{#each data.pets as pet (pet.id)}
-		<div class="pet-container">
-			<PetColumn {pet} />
-		</div>
+	<PackRow name={data.pack.name} pets={data.pack.pets} />
+	{#each data.pack.activities as activity (activity.id)}
+		<ActivityRow {activity} />
 	{/each}
 </div>
 
 <style>
 	.layout {
-		flex-direction: row;
+		flex-direction: column;
 		display: flex;
 		min-height: 100vh;
 		max-height: 100vh;
-	}
-
-	.tracker-container {
-		display: flex;
-		flex: 0.3;
-		flex-direction: column;
-		background-color: #0f172a;
-	}
-
-	.pet-container {
-		display: flex;
-		flex: 0.35;
-		flex-direction: column;
-		border-left-width: 0.5px;
-		border-left-style: solid;
-		border-color: #cbd5e1;
-		background-color: #fff;
+		min-width: 100vw;
+		max-width: 100vw;
 	}
 </style>
