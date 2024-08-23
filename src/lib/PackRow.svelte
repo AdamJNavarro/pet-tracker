@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PackImage from '$assets/pet-name-card.png';
 	import type { Pet } from '$db/methods';
 
 	export let name: string;
@@ -7,7 +8,7 @@
 
 <div class="container">
 	<div class="name_container">
-		{name} Dogs
+		<img width="80" height="80" src={PackImage} alt={`${name} pack`} />
 	</div>
 	{#each pets as pet (pet.id)}
 		<div class="pet_container">
@@ -24,8 +25,6 @@
 		font-size: var(--fs-l);
 		font-weight: 500;
 		text-transform: capitalize;
-		background-color: #0f172a;
-		color: white;
 	}
 
 	.name_container {
@@ -33,7 +32,8 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		width: 25%;
+		width: var(--activity-col-width);
+		background-color: var(--activity-bg-color);
 	}
 
 	.pet_container {
@@ -42,8 +42,8 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		border-left: 1px;
-		border-color: #334155;
+		border-left: 0.5px;
+		border-color: #cbd5e1;
 		border-left-style: solid;
 	}
 </style>

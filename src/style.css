@@ -9,6 +9,9 @@
 	--fs-xxxl: clamp(5.62rem, 6.611765vi + 3.97rem, 8.43rem);
 
 	--line-height: calc(2px + 2ex + 2px);
+
+	--activity-bg-color: #1e293b;
+	--activity-col-width: 20%;
 }
 
 html {

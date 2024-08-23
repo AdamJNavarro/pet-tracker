@@ -22,9 +22,7 @@
 	)}
 >
 	<slot />
-	<button class="btn" class:thinking disabled={thinking} type="submit"
-		>{thinking ? thinking_text : text}</button
-	>
+	<button class="btn" disabled={thinking} type="submit">{thinking ? thinking_text : text}</button>
 </form>
 
 <style>
@@ -86,7 +84,7 @@
 		transform: translateY(2px);
 	}
 
-	.btn.thinking {
+	/* .btn.thinking {
 		background-color: darkgray;
-	}
+	} */
 </style>

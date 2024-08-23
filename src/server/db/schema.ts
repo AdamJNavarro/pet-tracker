@@ -19,7 +19,7 @@ export const pack_activity = pgTable('pack_activities', {
 	pack_id: integer('pack_id')
 		.notNull()
 		.references(() => pack.id),
-	name: activity_enum('activity')
+	name: activity_enum('activity').notNull()
 });
 
 export const pack_activity_relations = relations(pack_activity, ({ one, many }) => ({
