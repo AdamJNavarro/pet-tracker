@@ -41,16 +41,19 @@
 	)}
 	class="container"
 >
-	<button class="button" disabled={thinking} type="submit">
+	<p>Placeholder</p>
+	<!-- <button class="button" disabled={thinking} type="submit">
 		<p>{formatted_date}</p>
 		<input name="log_id" hidden value={petLog.id} />
-	</button>
+	</button> -->
 </form>
 
 <style>
 	.container {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 		flex: 1;
 		border-top: 0.25px;
 		border-color: #cbd5e1;
