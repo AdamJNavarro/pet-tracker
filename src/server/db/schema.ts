@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { serial, text, pgTable, pgEnum, integer } from 'drizzle-orm/pg-core';
+import { serial, text, pgTable, pgEnum, integer, timestamp } from 'drizzle-orm/pg-core';
 
 export const activity_enum = pgEnum('activity', ['bathed', 'fed', 'groomed', 'outside', 'walked']);
 
@@ -57,7 +57,10 @@ export const pet_log = pgTable('pet_logs', {
 		.references(() => pet.id),
 	completed_at: text('completed_at'),
 	fallback_timestamp: text('fallback_timestamp'),
-	desired_frequency: integer('desired_frequency') // in ms
+	desired_frequency: integer('desired_frequency'), // in ms
+	updated_at: timestamp('updated_at')
+		.defaultNow()
+		.$onUpdate(() => new Date())
 });
 
 export const pet_log_relations = relations(pet_log, ({ one }) => ({

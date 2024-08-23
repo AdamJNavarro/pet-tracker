@@ -56,6 +56,7 @@ type FormatDateArgs = {
 };
 
 export function formatDate({ date, format }: FormatDateArgs): string {
+	// console.log('date', date);
 	try {
 		// date = date.replace(/\s+/g, 'T') + 'Z';
 

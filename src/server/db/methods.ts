@@ -49,7 +49,8 @@ export async function update_pet_log({ id, time_stamp }: UpdatePetLogArgs) {
 				fallback_timestamp: sql`${pet_log.completed_at}`,
 				completed_at: time_stamp
 			})
-			.where(eq(pet_log.id, id));
+			.where(eq(pet_log.id, id))
+			.returning();
 	} catch (e) {
 		console.log('UPL Err', e);
 		throw new Error('Update Pet Log Failed');

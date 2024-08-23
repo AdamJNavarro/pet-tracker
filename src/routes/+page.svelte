@@ -3,11 +3,12 @@
 	import PackRow from '$lib/PackRow.svelte';
 
 	export let data;
+	$: ({ pack } = data);
 </script>
 
 <div class="layout">
-	<PackRow name={data.pack.name} pets={data.pack.pets} />
-	{#each data.pack.activities as activity (activity.id)}
+	<PackRow name={pack.name} pets={pack.pets} />
+	{#each pack.activities as activity (activity.id)}
 		<ActivityRow {activity} />
 	{/each}
 </div>

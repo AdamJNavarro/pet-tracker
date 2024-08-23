@@ -1,0 +1,1 @@
+ALTER TABLE "pet_logs" ADD COLUMN "updated_at" timestamp DEFAULT now();

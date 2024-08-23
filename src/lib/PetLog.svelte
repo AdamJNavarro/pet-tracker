@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { formatDate, get_times_breakdown, type AgoFormat } from '$utils';
+	import { formatDate, type AgoFormat } from '$utils';
 	import { onMount } from 'svelte';
-	import { form_action } from './form_action';
 	import type { PetLog } from '$db/methods';
+	import FormButton from './FormButton.svelte';
+	import SettingsIcon from './icons/SettingsIcon.svelte';
+	import UndoIcon from './icons/UndoIcon.svelte';
 
 	export let petLog: PetLog;
-	export let thinking = false;
 	let ago_format: AgoFormat = 'hrs-ago';
 
-	let formatted_date: string = petLog.completed_at
+	$: formatted_date = petLog.completed_at
 		? formatDate({ date: petLog.completed_at, format: ago_format })
 		: 'N/A';
 
@@ -27,48 +27,60 @@
 	});
 </script>
 
-<form
-	action="?/upd_pet_log"
-	method="POST"
-	use:enhance={form_action(
-		{},
-		() => {
-			thinking = true;
-		},
-		() => {
-			thinking = false;
-		}
-	)}
-	class="container"
->
-	<p>Placeholder</p>
-	<!-- <button class="button" disabled={thinking} type="submit">
-		<p>{formatted_date}</p>
-		<input name="log_id" hidden value={petLog.id} />
-	</button> -->
-</form>
+<div class="container">
+	<div class="main_container">
+		<FormButton text={formatted_date} thinking_text="Updating..." action_path="?/upd_pet_log">
+			<input name="log_id" hidden value={petLog.id} />
+		</FormButton>
+	</div>
+	<div class="sidebar">
+		<div class="settings_button">
+			<SettingsIcon />
+		</div>
+		<div class="undo_button">
+			<UndoIcon />
+		</div>
+	</div>
+</div>
 
 <style>
 	.container {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		/* flex-direction: column; */
+		/* align-items: center;
+		justify-content: center; */
 		flex: 1;
+		width: 100%;
 		border-top: 0.25px;
 		border-color: #cbd5e1;
 		border-top-style: solid;
+		/* background-color: darkblue; */
 	}
 
-	.button {
+	.main_container {
 		display: flex;
 		flex-direction: column;
-		flex: 1;
 		align-items: center;
 		justify-content: center;
-		border: none;
-		font-size: var(--fs-base);
-		font-weight: 500;
-		background-color: transparent;
+		flex: 1;
+		margin-inline-start: 50px;
+	}
+
+	.sidebar {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		width: 50px;
+		margin-top: 8px;
+		margin-bottom: 8px;
+	}
+
+	.settings_button {
+		visibility: hidden;
+	}
+
+	.undo_button {
+		visibility: hidden;
 	}
 </style>
