@@ -1,6 +1,6 @@
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { find_pack, update_pet_log } from '$db/methods';
+import { find_pack, undo_pet_log_completed_at, update_pet_log } from '$db/methods';
 
 export const load: PageServerLoad = async () => {
 	const pack = await find_pack();
@@ -25,6 +25,23 @@ export const actions: Actions = {
 			} catch (error) {
 				return fail(400, {
 					message: 'Update Pet Log Failed'
+				});
+			}
+		}
+	},
+	async undo_completed_at({ request }) {
+		const data = await request.formData();
+		const raw_id = data.get('log_id');
+		if (raw_id) {
+			const log_id = parseInt(raw_id.toString());
+			try {
+				await undo_pet_log_completed_at({ id: log_id });
+				return {
+					message: 'Pet Log Completed At Reverted'
+				};
+			} catch (error) {
+				return fail(400, {
+					message: 'Undo Pet Log Completed At Failed'
 				});
 			}
 		}

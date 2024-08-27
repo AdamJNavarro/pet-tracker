@@ -1,25 +1,37 @@
 <script lang="ts">
-	import { formatDate, type AgoFormat } from '$utils';
+	import { get_log_breakdown, type LogBreakdown } from '$utils';
 	import { onMount } from 'svelte';
 	import type { PetLog } from '$db/methods';
-	import FormButton from './FormButton.svelte';
 	import SettingsIcon from './icons/SettingsIcon.svelte';
 	import UndoIcon from './icons/UndoIcon.svelte';
+	import { form_action } from './form_action';
+	import { enhance } from '$app/forms';
 
+	let breakdown: LogBreakdown | null = null;
+	let undo_available = false;
+	export let thinking = false;
 	export let petLog: PetLog;
-	let ago_format: AgoFormat = 'hrs-ago';
 
-	$: formatted_date = petLog.completed_at
-		? formatDate({ date: petLog.completed_at, format: ago_format })
-		: 'N/A';
+	$: ({ completed_at, fallback_timestamp, desired_frequency, updated_at } = petLog);
 
-	const refresh_interval_in_mins = 5;
-	onMount(() => {
-		const my_interval = setInterval(() => {
-			if (petLog.completed_at) {
-				formatted_date = formatDate({ date: petLog.completed_at, format: ago_format });
+	$: if (completed_at) {
+		breakdown = get_log_breakdown({ completed_at, desired_frequency, updated_at });
+		if (fallback_timestamp) {
+			if (breakdown.within_undo_period && completed_at !== fallback_timestamp) {
+				undo_available = true;
 			}
-		}, 60000 * refresh_interval_in_mins);
+		}
+	}
+
+	onMount(() => {
+		const my_interval = setInterval(
+			() => {
+				if (completed_at) {
+					breakdown = get_log_breakdown({ completed_at, desired_frequency, updated_at });
+				}
+			},
+			Math.floor(60000 * 5)
+		); // time in mins
 
 		return () => {
 			clearInterval(my_interval);
@@ -28,16 +40,31 @@
 </script>
 
 <div class="container">
-	<div class="main_container">
-		<FormButton text={formatted_date} thinking_text="Updating..." action_path="?/upd_pet_log">
-			<input name="log_id" hidden value={petLog.id} />
-		</FormButton>
-	</div>
+	<form
+		action="?/upd_pet_log"
+		use:enhance={form_action(
+			{},
+			() => {
+				thinking = true;
+			},
+			() => {
+				thinking = false;
+			}
+		)}
+		class="main_container"
+	>
+		<button class="timer_button" disabled={thinking} type="submit"
+			>{breakdown ? breakdown.ago_str : ''}</button
+		>
+		<div class="ago_container">{breakdown ? 'ago' : ''}</div>
+		<input name="log_id" hidden value={petLog.id} />
+	</form>
+
 	<div class="sidebar">
 		<div class="settings_button">
 			<SettingsIcon />
 		</div>
-		<div class="undo_button">
+		<div class="undo_button" class:undo_available>
 			<UndoIcon />
 		</div>
 	</div>
@@ -46,15 +73,11 @@
 <style>
 	.container {
 		display: flex;
-		/* flex-direction: column; */
-		/* align-items: center;
-		justify-content: center; */
 		flex: 1;
 		width: 100%;
 		border-top: 0.25px;
 		border-color: #cbd5e1;
 		border-top-style: solid;
-		/* background-color: darkblue; */
 	}
 
 	.main_container {
@@ -64,6 +87,20 @@
 		justify-content: center;
 		flex: 1;
 		margin-inline-start: 50px;
+	}
+
+	.timer_button {
+		background-color: transparent;
+		border: none;
+		color: #020617;
+		font-size: var(--fs-base);
+		font-weight: 500;
+	}
+
+	.ago_container {
+		margin-top: 4px;
+		color: #334155;
+		font-size: var(--fs-xs);
 	}
 
 	.sidebar {
@@ -81,6 +118,10 @@
 	}
 
 	.undo_button {
+		visibility: hidden;
+	}
+
+	.undo_button.undo_available {
 		visibility: hidden;
 	}
 </style>

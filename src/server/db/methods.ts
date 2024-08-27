@@ -56,3 +56,15 @@ export async function update_pet_log({ id, time_stamp }: UpdatePetLogArgs) {
 		throw new Error('Update Pet Log Failed');
 	}
 }
+
+export async function undo_pet_log_completed_at({ id }: { id: number }) {
+	try {
+		await db
+			.update(pet_log)
+			.set({ completed_at: sql`${pet_log.fallback_timestamp}` })
+			.where(eq(pet_log.id, id))
+			.returning();
+	} catch (error) {
+		throw new Error('Undo Error');
+	}
+}

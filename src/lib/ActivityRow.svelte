@@ -24,7 +24,6 @@
 		flex-direction: row;
 		font-size: var(--fs-base);
 		font-weight: 500;
-		text-transform: capitalize;
 	}
 
 	.name_container {

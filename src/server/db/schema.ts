@@ -59,6 +59,7 @@ export const pet_log = pgTable('pet_logs', {
 	fallback_timestamp: text('fallback_timestamp'),
 	desired_frequency: integer('desired_frequency'), // in ms
 	updated_at: timestamp('updated_at')
+		.notNull()
 		.defaultNow()
 		.$onUpdate(() => new Date())
 });
