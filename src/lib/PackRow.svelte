@@ -8,7 +8,7 @@
 
 <div class="container">
 	<div class="name_container">
-		<img width="80" height="80" src={PackImage} alt={`${name} pack`} />
+		<img width="60" height="60" src={PackImage} alt={`${name} pack`} />
 	</div>
 	{#each pets as pet (pet.id)}
 		<div class="pet_container">
