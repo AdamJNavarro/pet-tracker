@@ -42,6 +42,7 @@
 <div class="container">
 	<form
 		action="?/upd_pet_log"
+		method="POST"
 		use:enhance={form_action(
 			{},
 			() => {
