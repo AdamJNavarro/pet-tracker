@@ -22,3 +22,6 @@ vite.config.ts.timestamp-*
 
 # Sentry Config File
 .sentryclirc
+
+# Dev Diary
+.dev-diary.txt
