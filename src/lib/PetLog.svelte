@@ -39,7 +39,7 @@
 	});
 </script>
 
-<div class="container">
+<div class="container" class:needs_completing={breakdown && breakdown.needs_completing}>
 	<form
 		action="?/upd_pet_log"
 		method="POST"
@@ -79,6 +79,10 @@
 		border-top: 0.25px;
 		border-color: #cbd5e1;
 		border-top-style: solid;
+	}
+
+	.container.needs_completing {
+		background-color: var(--danger-color);
 	}
 
 	.main_container {
