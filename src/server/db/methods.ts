@@ -25,7 +25,9 @@ export async function find_pack(): Promise<FullPack> {
 					logs: {
 						orderBy: (logs, { asc }) => [asc(logs.id)]
 					}
-				}
+				},
+				where: eq(pack_activity.tracking, true),
+				orderBy: (activities, { asc }) => [asc(activities.ranking)]
 			},
 			pets: {
 				orderBy: (pets, { asc }) => [asc(pets.id)]

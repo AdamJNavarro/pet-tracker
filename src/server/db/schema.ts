@@ -1,7 +1,14 @@
 import { relations } from 'drizzle-orm';
-import { serial, text, pgTable, pgEnum, integer, timestamp } from 'drizzle-orm/pg-core';
+import { serial, text, pgTable, pgEnum, integer, timestamp, boolean } from 'drizzle-orm/pg-core';
 
-export const activity_enum = pgEnum('activity', ['bathed', 'fed', 'groomed', 'outside', 'walked']);
+export const activity_enum = pgEnum('activity', [
+	'bathed',
+	'fed',
+	'groomed',
+	'meds',
+	'outside',
+	'walked'
+]);
 
 export const pack = pgTable('packs', {
 	id: serial('id').primaryKey(),
@@ -19,7 +26,9 @@ export const pack_activity = pgTable('pack_activities', {
 	pack_id: integer('pack_id')
 		.notNull()
 		.references(() => pack.id),
-	name: activity_enum('activity').notNull()
+	name: activity_enum('activity').notNull(),
+	ranking: serial('ranking').notNull(),
+	tracking: boolean('tracking').notNull().default(true)
 });
 
 export const pack_activity_relations = relations(pack_activity, ({ one, many }) => ({

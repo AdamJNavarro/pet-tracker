@@ -1,4 +1,4 @@
-import {sequence} from '@sveltejs/kit/hooks';
+import { sequence } from '@sveltejs/kit/hooks';
 import * as Sentry from '@sentry/sveltekit';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { env } from '$env/dynamic/private';
@@ -8,9 +8,9 @@ import type { Handle } from '@sveltejs/kit';
 import postgres from 'postgres';
 
 Sentry.init({
-    dsn: "https://b1e08b8b7200dd59df1aea2277a2c37f@o435257.ingest.us.sentry.io/4507822379499520",
-    tracesSampleRate: 1
-})
+	dsn: 'https://b1e08b8b7200dd59df1aea2277a2c37f@o435257.ingest.us.sentry.io/4507822379499520',
+	tracesSampleRate: 1
+});
 
 if (!env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
 
