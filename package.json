@@ -13,7 +13,8 @@
 		"db-gen": "drizzle-kit generate",
 		"db-push": "drizzle-kit push",
 		"db-mig": "drizzle-kit migrate",
-		"db-pull": "drizzle-kit introspect"
+		"db-pull": "drizzle-kit introspect",
+		"db-seed": "tsx src/server/db/seed.ts"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.4",

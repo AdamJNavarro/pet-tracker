@@ -1,5 +1,5 @@
 {
-  "id": "60151ca9-ef30-4817-a0a0-db51573bcf44",
+  "id": "6b7a651e-d209-4834-904d-ae721e17cf9c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -53,7 +53,20 @@
           "type": "activity",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "ranking": {
+          "name": "ranking",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tracking": {
+          "name": "tracking",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
         }
       },
       "indexes": {},
@@ -162,6 +175,13 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
@@ -205,6 +225,7 @@
         "bathed",
         "fed",
         "groomed",
+        "meds",
         "outside",
         "walked"
       ]

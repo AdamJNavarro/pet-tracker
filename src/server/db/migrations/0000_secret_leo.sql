@@ -1,5 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "public"."activity" AS ENUM('bathed', 'fed', 'groomed', 'outside', 'walked');
+ CREATE TYPE "public"."activity" AS ENUM('bathed', 'fed', 'groomed', 'meds', 'outside', 'walked');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS "packs" (
 CREATE TABLE IF NOT EXISTS "pack_activities" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"pack_id" integer NOT NULL,
-	"activity" "activity"
+	"activity" "activity" NOT NULL,
+	"ranking" serial NOT NULL,
+	"tracking" boolean DEFAULT true NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "pets" (
@@ -29,7 +31,8 @@ CREATE TABLE IF NOT EXISTS "pet_logs" (
 	"pet_id" integer NOT NULL,
 	"completed_at" text,
 	"fallback_timestamp" text,
-	"desired_frequency" integer
+	"desired_frequency" integer,
+	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN
