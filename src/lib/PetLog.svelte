@@ -55,7 +55,7 @@
 		class="main_container"
 	>
 		<button class="timer_button" disabled={thinking} type="submit"
-			>{breakdown ? breakdown.ago_str : 'Update Log'}</button
+			>{thinking ? '< 1 min' : breakdown ? breakdown.ago_str : 'Update Log'}</button
 		>
 		<div class="ago_container">{breakdown ? 'ago' : ''}</div>
 		<input name="log_id" hidden value={petLog.id} />
