@@ -64,6 +64,7 @@ export const pet_log = pgTable('pet_logs', {
 	pet_id: integer('pet_id')
 		.notNull()
 		.references(() => pet.id),
+	tracking: boolean('tracking').notNull().default(true),
 	completed_at: text('completed_at'),
 	fallback_timestamp: text('fallback_timestamp'),
 	desired_frequency: integer('desired_frequency'), // in ms
@@ -83,37 +84,3 @@ export const pet_log_relations = relations(pet_log, ({ one }) => ({
 		references: [pet.id]
 	})
 }));
-
-// bathed_at: timestamp('bathed_at', { mode: 'string' }),
-// fed_at: timestamp('fed_at', { mode: 'string' }),
-// groomed_at: timestamp('groomed_at', { mode: 'string' }),
-// outside_at: timestamp('outside_at', { mode: 'string' }),
-// walked_at: timestamp('walked_at', { mode: 'string' })
-
-// import { serial, text, pgTable, timestamp } from 'drizzle-orm/pg-core';
-
-// export const pets = pgTable('pets', {
-// 	id: serial('id').primaryKey(),
-// 	avatar_url: text('avatar_url'),
-// 	name: text('name').notNull().unique(),
-// 	bathed_at: timestamp('bathed_at', { mode: 'string' }),
-// 	fed_at: timestamp('fed_at', { mode: 'string' }),
-// 	groomed_at: timestamp('groomed_at', { mode: 'string' }),
-// 	outside_at: timestamp('outside_at', { mode: 'string' }),
-// 	walked_at: timestamp('walked_at', { mode: 'string' })
-// });
-
-// SQL STATEMENTS
-
-// Create pack
-// INSERT INTO packs (name) VALUES ('navarro');
-
-// Create Pets
-// INSERT INTO pets (name, pack_id) VALUES ('ace', 1);
-
-// Create Pack Activity
-// INSERT INTO pack_activities (pack_id, activity) VALUES (1, 'outside');
-
-// Create Pet Logs
-// INSERT INTO pet_logs (pack_activity_id, pet_id) VALUES (1, 1);
-// INSERT INTO pet_logs (pack_activity_id, pet_id) VALUES (1, 2);
