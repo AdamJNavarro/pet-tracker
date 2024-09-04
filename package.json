@@ -14,7 +14,9 @@
 		"db-push": "drizzle-kit push",
 		"db-mig": "drizzle-kit migrate",
 		"db-pull": "drizzle-kit introspect",
-		"db-seed": "tsx src/server/db/seed.ts"
+		"db-seed": "tsx src/server/db/seed.ts",
+		"db-dev-studio": "DB_ENV=dev drizzle-kit studio",
+		"db-prod-studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.4",
