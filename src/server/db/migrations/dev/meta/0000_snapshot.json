@@ -1,5 +1,5 @@
 {
-  "id": "9bdb4a8c-decf-4850-a4fd-d4c7a039cde6",
+  "id": "b9d9f6c0-ce4b-4488-a252-ee7df3dd730f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -136,8 +136,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.pet_logs": {
-      "name": "pet_logs",
+    "public.pet_activities": {
+      "name": "pet_activities",
       "schema": "",
       "columns": {
         "id": {
@@ -165,37 +165,24 @@
           "notNull": true,
           "default": true
         },
-        "completed_at": {
-          "name": "completed_at",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "fallback_timestamp": {
-          "name": "fallback_timestamp",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "desired_frequency": {
           "name": "desired_frequency",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
+        "daily_max": {
+          "name": "daily_max",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+          "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "pet_logs_pack_activity_id_pack_activities_id_fk": {
-          "name": "pet_logs_pack_activity_id_pack_activities_id_fk",
-          "tableFrom": "pet_logs",
+        "pet_activities_pack_activity_id_pack_activities_id_fk": {
+          "name": "pet_activities_pack_activity_id_pack_activities_id_fk",
+          "tableFrom": "pet_activities",
           "tableTo": "pack_activities",
           "columnsFrom": [
             "pack_activity_id"
@@ -206,9 +193,93 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "pet_logs_pet_id_pets_id_fk": {
-          "name": "pet_logs_pet_id_pets_id_fk",
-          "tableFrom": "pet_logs",
+        "pet_activities_pet_id_pets_id_fk": {
+          "name": "pet_activities_pet_id_pets_id_fk",
+          "tableFrom": "pet_activities",
+          "tableTo": "pets",
+          "columnsFrom": [
+            "pet_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.pet_activity_logs": {
+      "name": "pet_activity_logs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "activity_id": {
+          "name": "activity_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pet_id": {
+          "name": "pet_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time_stamp": {
+          "name": "time_stamp",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "pet_activity_log_idx": {
+          "name": "pet_activity_log_idx",
+          "columns": [
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pet_activity_logs_activity_id_pet_activities_id_fk": {
+          "name": "pet_activity_logs_activity_id_pet_activities_id_fk",
+          "tableFrom": "pet_activity_logs",
+          "tableTo": "pet_activities",
+          "columnsFrom": [
+            "activity_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "pet_activity_logs_pet_id_pets_id_fk": {
+          "name": "pet_activity_logs_pet_id_pets_id_fk",
+          "tableFrom": "pet_activity_logs",
           "tableTo": "pets",
           "columnsFrom": [
             "pet_id"

@@ -1,5 +1,5 @@
 import { db } from '../../hooks.server';
-import { pack, pack_activity, pet, pet_log } from './schema';
+import { pack, pack_activity, pet, pet_activity } from './schema';
 
 const ace_timestamps = {
 	outside: '2024-08-29T14:12:26.171Z',
@@ -72,22 +72,22 @@ async function seed_db() {
 	const groomed_id = groomed_activity[0].id;
 	console.log('groomed_id', groomed_id);
 
-	const ace_logs = await db.insert(pet_log).values([
-		{ pack_activity_id: outside_id, pet_id: ace_id, completed_at: ace_timestamps.outside },
+	const ace_logs = await db.insert(pet_activity).values([
+		{ pack_activity_id: outside_id, pet_id: ace_id },
 		{ pack_activity_id: fed_id, pet_id: ace_id },
 		{ pack_activity_id: meds_id, pet_id: ace_id },
-		{ pack_activity_id: walked_id, pet_id: ace_id, completed_at: ace_timestamps.walked },
-		{ pack_activity_id: bathed_id, pet_id: ace_id, completed_at: ace_timestamps.bathed },
-		{ pack_activity_id: groomed_id, pet_id: ace_id, completed_at: ace_timestamps.groomed }
+		{ pack_activity_id: walked_id, pet_id: ace_id },
+		{ pack_activity_id: bathed_id, pet_id: ace_id },
+		{ pack_activity_id: groomed_id, pet_id: ace_id }
 	]);
 
-	const cooper_logs = await db.insert(pet_log).values([
-		{ pack_activity_id: outside_id, pet_id: cooper_id, completed_at: cooper_timestamps.outside },
+	const cooper_logs = await db.insert(pet_activity).values([
+		{ pack_activity_id: outside_id, pet_id: cooper_id },
 		{ pack_activity_id: fed_id, pet_id: cooper_id },
-		{ pack_activity_id: meds_id, pet_id: cooper_id },
-		{ pack_activity_id: walked_id, pet_id: cooper_id, completed_at: cooper_timestamps.walked },
-		{ pack_activity_id: bathed_id, pet_id: cooper_id, completed_at: cooper_timestamps.bathed },
-		{ pack_activity_id: groomed_id, pet_id: cooper_id, completed_at: cooper_timestamps.groomed }
+		{ pack_activity_id: meds_id, pet_id: cooper_id, daily_max: 1 },
+		{ pack_activity_id: walked_id, pet_id: cooper_id, tracking: false },
+		{ pack_activity_id: bathed_id, pet_id: cooper_id },
+		{ pack_activity_id: groomed_id, pet_id: cooper_id }
 	]);
 
 	return;

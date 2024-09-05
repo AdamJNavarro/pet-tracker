@@ -1,6 +1,6 @@
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { find_pack, undo_pet_log_completed_at, update_pet_log } from '$db/methods';
+import { find_pack, create_pet_activity_log, delete_pet_activity_log } from '$db/methods';
 
 export const load: PageServerLoad = async () => {
 	const pack = await find_pack();
@@ -11,14 +11,16 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	async upd_pet_log({ request }) {
+	async create_log({ request }) {
 		const time_stamp = new Date().toISOString();
 		const data = await request.formData();
-		const raw_id = data.get('log_id');
-		if (raw_id) {
-			const log_id = parseInt(raw_id.toString());
+		const raw_activity_id = data.get('activity_id');
+		const raw_pet_id = data.get('pet_id');
+		if (raw_activity_id && raw_pet_id) {
+			const activity_id = parseInt(raw_activity_id.toString());
+			const pet_id = parseInt(raw_pet_id.toString());
 			try {
-				await update_pet_log({ id: log_id, time_stamp });
+				await create_pet_activity_log({ activity_id, pet_id, time_stamp });
 				return {
 					message: 'Pet Log Updated'
 				};
@@ -29,19 +31,20 @@ export const actions: Actions = {
 			}
 		}
 	},
-	async undo_completed_at({ request }) {
+	async delete_log({ request }) {
+		const time_stamp = new Date().toISOString();
 		const data = await request.formData();
-		const raw_id = data.get('log_id');
-		if (raw_id) {
-			const log_id = parseInt(raw_id.toString());
+		const raw_log_id = data.get('log_id');
+		if (raw_log_id) {
+			const log_id = parseInt(raw_log_id.toString());
 			try {
-				await undo_pet_log_completed_at({ id: log_id });
+				await delete_pet_activity_log(log_id);
 				return {
-					message: 'Pet Log Completed At Reverted'
+					message: 'Pet Log Deleted'
 				};
 			} catch (error) {
 				return fail(400, {
-					message: 'Undo Pet Log Completed At Failed'
+					message: 'Delete Pet Log Failed'
 				});
 			}
 		}

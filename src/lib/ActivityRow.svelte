@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { FullPackActivity } from '$db/methods';
 	import ActivityImage from './ActivityImage.svelte';
-	import PetLog from './PetLog.svelte';
+	import PetActivity from './PetActivity.svelte';
 
 	export let activity: FullPackActivity;
 </script>
@@ -10,9 +10,9 @@
 	<div class="name_container">
 		<ActivityImage name={activity.name} />
 	</div>
-	{#each activity.logs as log (log.id)}
+	{#each activity.pet_activities as pet_activity (pet_activity.id)}
 		<div class="log_container">
-			<PetLog petLog={log} />
+			<PetActivity activity={pet_activity} />
 		</div>
 	{/each}
 </div>

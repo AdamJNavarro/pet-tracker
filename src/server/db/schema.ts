@@ -1,5 +1,14 @@
 import { relations } from 'drizzle-orm';
-import { serial, text, pgTable, pgEnum, integer, timestamp, boolean } from 'drizzle-orm/pg-core';
+import {
+	serial,
+	text,
+	pgTable,
+	pgEnum,
+	integer,
+	timestamp,
+	boolean,
+	index
+} from 'drizzle-orm/pg-core';
 
 export const activity_enum = pgEnum('activity', [
 	'bathed',
@@ -36,7 +45,7 @@ export const pack_activity_relations = relations(pack_activity, ({ one, many }) 
 		fields: [pack_activity.pack_id],
 		references: [pack.id]
 	}),
-	logs: many(pet_log)
+	pet_activities: many(pet_activity)
 }));
 
 export const pet = pgTable('pets', {
@@ -53,10 +62,11 @@ export const pet_relations = relations(pet, ({ one, many }) => ({
 		fields: [pet.pack_id],
 		references: [pack.id]
 	}),
-	logs: many(pet_log)
+	activities: many(pet_activity),
+	logs: many(pet_activity_log)
 }));
 
-export const pet_log = pgTable('pet_logs', {
+export const pet_activity = pgTable('pet_activities', {
 	id: serial('id').primaryKey(),
 	pack_activity_id: integer('pack_activity_id')
 		.notNull()
@@ -65,22 +75,55 @@ export const pet_log = pgTable('pet_logs', {
 		.notNull()
 		.references(() => pet.id),
 	tracking: boolean('tracking').notNull().default(true),
-	completed_at: text('completed_at'),
-	fallback_timestamp: text('fallback_timestamp'),
 	desired_frequency: integer('desired_frequency'), // in ms
-	updated_at: timestamp('updated_at')
-		.notNull()
-		.defaultNow()
-		.$onUpdate(() => new Date())
+	daily_max: integer('daily_max')
+	// completed_at: text('completed_at'),
+	// fallback_timestamp: text('fallback_timestamp'),
+	// updated_at: timestamp('updated_at')
+	// 	.notNull()
+	// 	.defaultNow()
+	// 	.$onUpdate(() => new Date())
 });
 
-export const pet_log_relations = relations(pet_log, ({ one }) => ({
+export const pet_activity_relations = relations(pet_activity, ({ one, many }) => ({
 	pack_activity: one(pack_activity, {
-		fields: [pet_log.pack_activity_id],
+		fields: [pet_activity.pack_activity_id],
 		references: [pack_activity.id]
 	}),
 	pet: one(pet, {
-		fields: [pet_log.pet_id],
+		fields: [pet_activity.pet_id],
+		references: [pet.id]
+	}),
+	logs: many(pet_activity_log)
+}));
+
+export const pet_activity_log = pgTable(
+	'pet_activity_logs',
+	{
+		id: serial('id').primaryKey(),
+		activity_id: integer('activity_id')
+			.notNull()
+			.references(() => pet_activity.id),
+		pet_id: integer('pet_id')
+			.notNull()
+			.references(() => pet.id),
+		time_stamp: text('time_stamp').notNull(),
+		created_at: timestamp('created_at').defaultNow()
+	},
+	(table) => {
+		return {
+			log_idx: index('pet_activity_log_idx').on(table.id)
+		};
+	}
+);
+
+export const pet_activity_log_relations = relations(pet_activity_log, ({ one }) => ({
+	activity: one(pet_activity, {
+		fields: [pet_activity_log.activity_id],
+		references: [pet_activity.id]
+	}),
+	pet: one(pet, {
+		fields: [pet_activity_log.pet_id],
 		references: [pet.id]
 	})
 }));
