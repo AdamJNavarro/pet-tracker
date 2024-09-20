@@ -12,6 +12,7 @@ import {
 
 export const activity_enum = pgEnum('activity', [
 	'bathed',
+	'brushed teeth',
 	'fed',
 	'groomed',
 	'meds',

@@ -1,19 +1,54 @@
 <script lang="ts">
-	// import { get_log_breakdown, type LogBreakdown } from '$utils';
 	import type { FullPetActivity } from '$db/methods';
-	import SettingsIcon from './icons/SettingsIcon.svelte';
 	import { form_action } from './form_action';
 	import { enhance } from '$app/forms';
+	import { get_log_breakdown, type LogBreakdown } from '$utils';
+	import { onMount } from 'svelte';
+	import LogText from './LogText.svelte';
 
 	export let thinking = false;
 	export let activity: FullPetActivity;
-	let { pet_id, tracking, daily_max, desired_frequency, logs } = activity;
-	let newest_log = logs.length > 0 ? logs[0] : null;
+	let breakdown: LogBreakdown | null = null;
+
+	let { pet_id, daily_max, desired_frequency, logs } = activity;
+	let latest_log = logs.length > 0 ? logs[0] : null;
+	let should_prompt = false;
+
+	$: if (latest_log) {
+		breakdown = get_log_breakdown({ time_stamp: latest_log.time_stamp, desired_frequency });
+	}
+
+	$: if (daily_max && logs.length >= daily_max) {
+		let current_date = new Date().toISOString();
+
+		let day_substr = current_date.substring(0, current_date.indexOf('T'));
+
+		let times_completed_today = logs.filter((log) => log.time_stamp.startsWith(day_substr)).length;
+
+		if (times_completed_today >= daily_max) {
+			should_prompt = true;
+		}
+	}
+
+	onMount(() => {
+		const rerun_breakdown_interval = setInterval(
+			() => {
+				if (latest_log) {
+					breakdown = get_log_breakdown({ time_stamp: latest_log.time_stamp, desired_frequency });
+				}
+			},
+			Math.floor(60000 * 5)
+		); // time in mins
+
+		return () => {
+			clearInterval(rerun_breakdown_interval);
+		};
+	});
 </script>
 
 <div class="container">
 	<form
-		action="?/create_log"
+		action={'?/create_log'}
 		method="POST"
 		use:enhance={form_action(
 			{},
@@ -26,19 +61,17 @@
 		)}
 		class="main_container"
 	>
-		<button class="timer_button" disabled={thinking} type="submit"
-			>{thinking ? 'thinking' : 'Create Log'}</button
-		>
+		<button class="timer_button" disabled={thinking} type="submit">
+			{#if breakdown}
+				<LogText main_text={thinking ? '< 1 min' : breakdown.ago_str} sub_text="ago" />
+			{:else}
+				<LogText main_text={thinking ? '< 1 min' : 'Update'} sub_text={thinking ? 'ago' : 'log'} />
+			{/if}
+		</button>
 
 		<input name="activity_id" hidden value={activity.id} />
 		<input name="pet_id" hidden value={pet_id} />
 	</form>
-
-	<div class="sidebar">
-		<div class="settings_button">
-			<SettingsIcon />
-		</div>
-	</div>
 </div>
 
 <style>
@@ -47,7 +80,7 @@
 		flex: 1;
 		width: 100%;
 		border-top: 0.25px;
-		border-color: #cbd5e1;
+		border-color: var(--color-line);
 		border-top-style: solid;
 	}
 
@@ -57,34 +90,11 @@
 		align-items: center;
 		justify-content: center;
 		flex: 1;
-		margin-inline-start: 50px;
 	}
 
 	.timer_button {
 		background-color: transparent;
 		border: none;
-		color: #020617;
-		font-size: var(--fs-base);
-		font-weight: 500;
-	}
-
-	.ago_container {
-		margin-top: 4px;
-		color: #334155;
-		font-size: var(--fs-xs);
-	}
-
-	.sidebar {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		width: 50px;
-		margin-top: 8px;
-		margin-bottom: 8px;
-	}
-
-	.settings_button {
-		visibility: hidden;
+		font-size: inherit;
 	}
 </style>

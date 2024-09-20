@@ -32,9 +32,9 @@ export const actions: Actions = {
 		}
 	},
 	async delete_log({ request }) {
-		const time_stamp = new Date().toISOString();
 		const data = await request.formData();
 		const raw_log_id = data.get('log_id');
+		console.log('raw_log_id', raw_log_id);
 		if (raw_log_id) {
 			const log_id = parseInt(raw_log_id.toString());
 			try {
