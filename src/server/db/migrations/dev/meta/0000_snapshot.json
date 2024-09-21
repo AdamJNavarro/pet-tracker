@@ -1,5 +1,5 @@
 {
-  "id": "b9d9f6c0-ce4b-4488-a252-ee7df3dd730f",
+  "id": "3146a28f-da67-422e-ae2e-3657b9c88259",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -48,12 +48,18 @@
           "primaryKey": false,
           "notNull": true
         },
-        "activity": {
-          "name": "activity",
-          "type": "activity",
-          "typeSchema": "public",
+        "name": {
+          "name": "name",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "icon_name": {
+          "name": "icon_name",
+          "type": "icon_name",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
         },
         "ranking": {
           "name": "ranking",
@@ -296,16 +302,18 @@
     }
   },
   "enums": {
-    "public.activity": {
-      "name": "activity",
+    "public.icon_name": {
+      "name": "icon_name",
       "schema": "public",
       "values": [
-        "bathed",
-        "fed",
-        "groomed",
+        "bubbles",
+        "dog_bowl",
+        "dog_head",
+        "grass",
         "meds",
-        "outside",
-        "walked"
+        "paw_prints",
+        "scissors",
+        "toothbrush"
       ]
     }
   },

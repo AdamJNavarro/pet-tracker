@@ -1,5 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "public"."activity" AS ENUM('bathed', 'fed', 'groomed', 'meds', 'outside', 'walked');
+ CREATE TYPE "public"."icon_name" AS ENUM('bubbles', 'dog_bowl', 'dog_head', 'grass', 'meds', 'paw_prints', 'scissors', 'toothbrush');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS "packs" (
 CREATE TABLE IF NOT EXISTS "pack_activities" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"pack_id" integer NOT NULL,
-	"activity" "activity" NOT NULL,
+	"name" text NOT NULL,
+	"icon_name" "icon_name",
 	"ranking" serial NOT NULL,
 	"tracking" boolean DEFAULT true NOT NULL
 );

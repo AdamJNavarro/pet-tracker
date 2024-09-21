@@ -38,11 +38,9 @@ export function get_log_breakdown({
 		ago_str = `${pluralize({ count: hours_ago, single: 'hour' })}`;
 	} else if (days_ago < 7) {
 		ago_str = `${pluralize({ count: days_ago, single: 'day' })}`;
-	} else if (days_ago < 30) {
+	} else {
 		const weeks_ago = Math.floor(days_ago / 7);
 		ago_str = `${pluralize({ count: weeks_ago, single: 'week' })}`;
-	} else {
-		ago_str = 'Too Long';
 	}
 
 	if (desired_frequency) {

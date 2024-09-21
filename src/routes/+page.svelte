@@ -1,5 +1,4 @@
 <script lang="ts">
-	import LogText from '$lib/LogText.svelte';
 	import PetActivity from '$lib/PetActivity.svelte';
 	import RowHeader from '$lib/RowHeader.svelte';
 
@@ -9,7 +8,7 @@
 
 <div class="layout">
 	<div class="flex-row">
-		<RowHeader icon_name="dog_head" label="Navarro Dogs" />
+		<RowHeader icon_name="dog_head" label="Navarros" />
 		{#each pack.pets as pet (pet.id)}
 			<div class="pet_container">
 				{pet.name}
@@ -20,13 +19,9 @@
 		<div class="flex-row">
 			<RowHeader icon_name={activity.icon_name} label={activity.name} />
 			{#each activity.pet_activities as pet_activity (pet_activity.id)}
-				<div class="log_container">
+				<div class="log_container" class:tracking_off={pet_activity.tracking === false}>
 					{#if pet_activity.tracking}
 						<PetActivity activity={pet_activity} />
-					{:else}
-						<div class="tracking_off">
-							<LogText main_text="Tracking" sub_text="off" />
-						</div>
 					{/if}
 				</div>
 			{/each}
@@ -83,10 +78,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		font-size: var(--fs-base);
+		font-size: var(--fs-s);
 	}
 
 	.tracking_off {
-		color: var(--color-disabled);
+		background-color: var(--color-disabled);
 	}
 </style>

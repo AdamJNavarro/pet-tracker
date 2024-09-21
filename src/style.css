@@ -1,25 +1,19 @@
 :root {
 	--fs-xs: clamp(0.75rem, 0.894118vi + 0.53rem, 1.13rem);
-	--fs-base: clamp(1rem, 1.176471vi + 0.71rem, 1.5rem);
-	--fs-s: clamp(1.33rem, 1.576471vi + 0.94rem, 2rem);
-	--fs-m: clamp(1.78rem, 2.094118vi + 1.26rem, 2.67rem);
-	--fs-l: clamp(2.37rem, 2.8vi + 1.67rem, 3.56rem);
-	--fs-xl: clamp(3.16rem, 3.717647vi + 2.23rem, 4.74rem);
-	--fs-xxl: clamp(4.21rem, 4.964706vi + 2.97rem, 6.32rem);
-	--fs-xxxl: clamp(5.62rem, 6.611765vi + 3.97rem, 8.43rem);
+	--fs-s: clamp(0.875rem, 1.035294vi + 0.62rem, 1.32rem);
+	--fs-m: clamp(1.55rem, 1.835295vi + 1.1rem, 2.34rem);
 
-	--line-height: calc(2px + 2ex + 2px);
 	--border-size: 0.5px;
 
 	--activity-col-width: 20%;
 
 	--color-surface: light-dark(#201452, #000000);
+	--color-on-surface: light-dark(#eef0ff, #5677fc);
 	--color-bg: light-dark(#fff, #0d1117);
 	--color-fg: light-dark(#000000, #fff);
-	--color-fg-subtle: light-dark(#eceeff, #eff2ff);
+	--color-fg-subtle: light-dark(#3d3d3d, #eff2ff);
 	--color-line: light-dark(#bfc4ff, #3d3d3d);
-	--color-primary: light-dark(#dce0ff, #5677fc);
-	--color-disabled: light-dark(#888888, #6280a0);
+	--color-disabled: light-dark(#fafafa, #6280a0);
 }
 
 html {

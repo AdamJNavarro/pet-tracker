@@ -17,10 +17,11 @@
 	}
 
 	.main_text {
-		font-size: var(--fs-base);
+		font-size: var(--fs-s);
 	}
 
 	.sub_text {
 		font-size: var(--fs-xs);
+		color: var(--color-fg-subtle);
 	}
 </style>

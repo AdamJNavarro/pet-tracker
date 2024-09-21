@@ -1,1 +1,0 @@
-ALTER TYPE "activity" ADD VALUE 'brushed teeth';
