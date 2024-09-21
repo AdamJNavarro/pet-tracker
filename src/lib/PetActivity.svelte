@@ -101,6 +101,5 @@
 	.timer_button {
 		background-color: transparent;
 		border: none;
-		font-size: inherit;
 	}
 </style>

@@ -65,20 +65,18 @@
 		align-items: center;
 		justify-content: center;
 		font-size: var(--fs-m);
-		font-weight: 500;
+		font-weight: 600;
 		text-transform: capitalize;
 		color: var(--color-fg);
 	}
 
 	.log_container {
 		background-color: var(--color-bg);
-		color: var(--color-fg);
 		display: flex;
 		flex: 1;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		font-size: var(--fs-s);
 	}
 
 	.tracking_off {
