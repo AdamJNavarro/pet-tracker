@@ -7,13 +7,17 @@
 
 	--activity-col-width: 20%;
 
-	--color-surface: light-dark(#201452, #000000);
-	--color-on-surface: light-dark(#eef0ff, #5677fc);
-	--color-bg: light-dark(#fff, #0d1117);
-	--color-fg: light-dark(#000000, #fff);
+	--black: #000000;
+
+	--color-surface: light-dark(#211348, var(--black));
+	--color-on-surface: light-dark(#e5e6f9, #6b57fb);
+	--color-bg: light-dark(#fff, #0a0e14);
+	--color-fg: light-dark(var(--black), #fff);
 	--color-fg-subtle: light-dark(#3d3d3d, #eff2ff);
 	--color-line: light-dark(#bfc4ff, #3d3d3d);
-	--color-disabled: light-dark(#fafafa, #6280a0);
+	--color-disabled: light-dark(#fafafa, #080b10);
+	--color-danger-subtle: light-dark(#fde6e7, #1f0307);
+	--color-warning-subtle: light-dark(#fef3c7, #fef3c7);
 }
 
 html {

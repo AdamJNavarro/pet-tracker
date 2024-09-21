@@ -16,6 +16,7 @@ type GetLogBreakdownArgs = {
 export type LogBreakdown = {
 	ago_str: string;
 	needs_completing?: boolean;
+	past_due?: boolean;
 };
 
 export function get_log_breakdown({
@@ -44,8 +45,17 @@ export function get_log_breakdown({
 	}
 
 	if (desired_frequency) {
-		const target_date_time = completed_date_time + desired_frequency;
-		if (current_date_time > target_date_time) {
+		const deadline_date_time = completed_date_time + desired_frequency;
+
+		if (current_date_time > deadline_date_time) {
+			return {
+				ago_str,
+				past_due: true
+			};
+		}
+		const warning_date_time = completed_date_time + desired_frequency * 0.75;
+
+		if (current_date_time > warning_date_time) {
 			return {
 				ago_str,
 				needs_completing: true

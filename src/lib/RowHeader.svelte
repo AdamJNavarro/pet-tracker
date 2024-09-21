@@ -11,7 +11,7 @@
 	import ClipboardCheckmarkIcon from 'virtual:icons/fluent/clipboard-checkmark-24-regular';
 	export let icon_name: IconName | null;
 	export let label: string;
-	let style_str = 'color:var(--color-on-surface); height:36px; width:36px;';
+	let style_str = 'color:var(--color-on-surface); height:40px; width:40px;';
 </script>
 
 <div class="container">
@@ -49,9 +49,10 @@
 
 	.label {
 		font-size: var(--fs-xs);
+		/* font-weight: 600; */
 		letter-spacing: 0.5px;
 		color: var(--color-on-surface);
-		margin-top: 8px;
+		margin-top: 12px;
 		text-transform: capitalize;
 	}
 </style>

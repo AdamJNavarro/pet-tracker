@@ -48,7 +48,11 @@
 	});
 </script>
 
-<div class="container" class:needs_completing={breakdown && breakdown.needs_completing}>
+<div
+	class="container"
+	class:needs_completing={breakdown && breakdown.needs_completing}
+	class:past_due={breakdown && breakdown.past_due}
+>
 	<form
 		action={'?/create_log'}
 		method="POST"
@@ -87,7 +91,11 @@
 	}
 
 	.needs_completing {
-		background-color: #fef2f4;
+		background-color: var(--color-warning-subtle);
+	}
+
+	.past_due {
+		background-color: var(--color-danger-subtle);
 	}
 
 	.main_container {
