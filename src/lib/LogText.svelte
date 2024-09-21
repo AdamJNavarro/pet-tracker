@@ -22,6 +22,5 @@
 
 	.sub_text {
 		font-size: var(--fs-xs);
-		margin-top: 4px;
 	}
 </style>

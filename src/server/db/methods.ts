@@ -8,6 +8,10 @@ export type PackActivity = typeof pack_activity.$inferSelect;
 export type PetActivity = typeof pet_activity.$inferSelect;
 export type PetActivityLog = typeof pet_activity_log.$inferSelect;
 
+export interface FullPet extends Pet {
+	activities: FullPetActivity[];
+}
+
 export interface FullPetActivity extends PetActivity {
 	logs: PetActivityLog[];
 }
@@ -18,6 +22,29 @@ export interface FullPackActivity extends PackActivity {
 export interface FullPack extends Pack {
 	activities: FullPackActivity[];
 	pets: Pet[];
+}
+
+interface FindPetActivitiesArgs {
+	pet_id: number;
+}
+
+export async function find_pet_activities({ pet_id }: FindPetActivitiesArgs): Promise<FullPet> {
+	const data = await db.query.pet.findFirst({
+		where: eq(pet.id, pet_id),
+		with: {
+			activities: {
+				orderBy: (activities, { asc }) => [asc(activities.id)],
+				with: {
+					logs: {
+						limit: 10,
+						orderBy: (logs, { desc }) => [desc(logs.id)]
+					}
+				}
+			}
+		}
+	});
+	if (!data) throw new Error('Pet Activities not found');
+	return data;
 }
 
 export async function find_pack(): Promise<FullPack> {

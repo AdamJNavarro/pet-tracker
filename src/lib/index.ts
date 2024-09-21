@@ -7,3 +7,13 @@ export type Activity =
 	| 'meds'
 	| 'outside'
 	| 'walked';
+
+export type IconName =
+	| 'bubbles'
+	| 'dog_bowl'
+	| 'dog_head'
+	| 'grass'
+	| 'meds'
+	| 'paw_prints'
+	| 'scissors'
+	| 'toothbrush';

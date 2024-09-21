@@ -8,11 +8,13 @@
 
 	export let thinking = false;
 	export let activity: FullPetActivity;
-	let breakdown: LogBreakdown | null = null;
 
-	let { pet_id, daily_max, desired_frequency, logs } = activity;
-	let latest_log = logs.length > 0 ? logs[0] : null;
+	let breakdown: LogBreakdown | null = null;
 	let should_prompt = false;
+
+	$: ({ pet_id, daily_max, desired_frequency, logs } = activity);
+
+	$: latest_log = logs.length > 0 ? logs[0] : null;
 
 	$: if (latest_log) {
 		breakdown = get_log_breakdown({ time_stamp: latest_log.time_stamp, desired_frequency });
@@ -46,7 +48,7 @@
 	});
 </script>
 
-<div class="container">
+<div class="container" class:needs_completing={breakdown && breakdown.needs_completing}>
 	<form
 		action={'?/create_log'}
 		method="POST"
@@ -82,6 +84,10 @@
 		border-top: 0.25px;
 		border-color: var(--color-line);
 		border-top-style: solid;
+	}
+
+	.needs_completing {
+		background-color: #fef2f4;
 	}
 
 	.main_container {

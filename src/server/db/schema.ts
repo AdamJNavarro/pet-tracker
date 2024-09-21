@@ -10,14 +10,15 @@ import {
 	index
 } from 'drizzle-orm/pg-core';
 
-export const activity_enum = pgEnum('activity', [
-	'bathed',
-	'brushed teeth',
-	'fed',
-	'groomed',
+export const icon_name_enum = pgEnum('icon_name', [
+	'bubbles',
+	'dog_bowl',
+	'dog_head',
+	'grass',
 	'meds',
-	'outside',
-	'walked'
+	'paw_prints',
+	'scissors',
+	'toothbrush'
 ]);
 
 export const pack = pgTable('packs', {
@@ -36,9 +37,11 @@ export const pack_activity = pgTable('pack_activities', {
 	pack_id: integer('pack_id')
 		.notNull()
 		.references(() => pack.id),
-	name: activity_enum('activity').notNull(),
+	name: text('name').notNull(),
+	icon_name: icon_name_enum('icon_name'),
 	ranking: serial('ranking').notNull(),
 	tracking: boolean('tracking').notNull().default(true)
+	// is_frequent: boolean('is_frequent').notNull().default(false) -- could be used to sort
 });
 
 export const pack_activity_relations = relations(pack_activity, ({ one, many }) => ({
@@ -78,12 +81,6 @@ export const pet_activity = pgTable('pet_activities', {
 	tracking: boolean('tracking').notNull().default(true),
 	desired_frequency: integer('desired_frequency'), // in ms
 	daily_max: integer('daily_max')
-	// completed_at: text('completed_at'),
-	// fallback_timestamp: text('fallback_timestamp'),
-	// updated_at: timestamp('updated_at')
-	// 	.notNull()
-	// 	.defaultNow()
-	// 	.$onUpdate(() => new Date())
 });
 
 export const pet_activity_relations = relations(pet_activity, ({ one, many }) => ({

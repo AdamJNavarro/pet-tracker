@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import LogText from '$lib/LogText.svelte';
 	import PetActivity from '$lib/PetActivity.svelte';
 	import RowHeader from '$lib/RowHeader.svelte';
@@ -9,7 +9,7 @@
 
 <div class="layout">
 	<div class="flex-row">
-		<RowHeader label="name" />
+		<RowHeader icon_name="dog_head" label="Navarro Dogs" />
 		{#each pack.pets as pet (pet.id)}
 			<div class="pet_container">
 				{pet.name}
@@ -18,7 +18,7 @@
 	</div>
 	{#each pack.activities as activity (activity.id)}
 		<div class="flex-row">
-			<RowHeader label={activity.name} />
+			<RowHeader icon_name={activity.icon_name} label={activity.name} />
 			{#each activity.pet_activities as pet_activity (pet_activity.id)}
 				<div class="log_container">
 					{#if pet_activity.tracking}

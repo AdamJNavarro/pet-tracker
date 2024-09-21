@@ -1,30 +1,38 @@
 <script lang="ts">
-	import type { Activity } from '$lib';
-	import NameIcon from 'virtual:icons/mdi/dog';
+	import type { IconName } from '$lib';
+	import DogHeadIcon from 'virtual:icons/mdi/dog';
 	import MedsIcon from 'virtual:icons/solar/pills-bold';
-	import GroomedIcon from 'virtual:icons/mingcute/scissors-line';
-	import OutsideIcon from 'virtual:icons/mingcute/grass-line';
-	import WalkedIcon from 'virtual:icons/fluent-emoji-high-contrast/paw-prints';
-	import BathedIcon from 'virtual:icons/icon-park-outline/soap-bubble';
-	import BrushedTeethIcon from 'virtual:icons/game-icons/toothbrush';
-	export let label: Activity | 'name';
+	import ScissorsIcon from 'virtual:icons/mingcute/scissors-line';
+	import GrassIcon from 'virtual:icons/mingcute/grass-line';
+	import PawPrintsIcon from 'virtual:icons/fluent-emoji-high-contrast/paw-prints';
+	import BubblesIcon from 'virtual:icons/icon-park-outline/soap-bubble';
+	import ToothBrushIcon from 'virtual:icons/game-icons/toothbrush';
+	import DogBowlIcon from 'virtual:icons/game-icons/dog-bowl';
+	import ClipboardCheckmarkIcon from 'virtual:icons/fluent/clipboard-checkmark-24-regular';
+	export let icon_name: IconName | null;
+	export let label: string;
+	let style_str = 'color:var(--color-primary); height:40px; width:40px;';
 </script>
 
 <div class="container">
-	{#if label === 'name'}
-		<NameIcon style="color:var(--color-primary); height:40px; width:40px;" />
-	{:else if label === 'meds'}
-		<MedsIcon style="color:var(--color-primary); height:40px; width:40px;" />
-	{:else if label === 'outside'}
-		<OutsideIcon style="color:var(--color-primary); height:40px; width:40px;" />
-	{:else if label === 'bathed'}
-		<BathedIcon style="color:var(--color-primary); height:40px; width:40px;" />
-	{:else if label === 'groomed'}
-		<GroomedIcon style="color:var(--color-primary); height:40px; width:40px;" />
-	{:else if label === 'walked'}
-		<WalkedIcon style="color:var(--color-primary); height:40px; width:40px;" />
-	{:else if label === 'brushed teeth'}
-		<BrushedTeethIcon style="color:var(--color-primary); height:40px; width:40px;" />
+	{#if icon_name === 'dog_head'}
+		<DogHeadIcon style={style_str} />
+	{:else if icon_name === 'dog_bowl'}
+		<DogBowlIcon style={style_str} />
+	{:else if icon_name === 'meds'}
+		<MedsIcon style={style_str} />
+	{:else if icon_name === 'grass'}
+		<GrassIcon style={style_str} />
+	{:else if icon_name === 'bubbles'}
+		<BubblesIcon style={style_str} />
+	{:else if icon_name === 'scissors'}
+		<ScissorsIcon style={style_str} />
+	{:else if icon_name === 'paw_prints'}
+		<PawPrintsIcon style={style_str} />
+	{:else if icon_name === 'toothbrush'}
+		<ToothBrushIcon style={style_str} />
+	{:else}
+		<ClipboardCheckmarkIcon style={style_str} />
 	{/if}
 	<div class="label">{label}</div>
 </div>
