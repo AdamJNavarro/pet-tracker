@@ -76,7 +76,7 @@ async function seed_db() {
 			{ pack_activity_id: outside_id, pet_id: ace_id },
 			{ pack_activity_id: fed_id, pet_id: ace_id },
 			{ pack_activity_id: meds_id, pet_id: ace_id },
-			{ pack_activity_id: walked_id, pet_id: ace_id },
+			{ pack_activity_id: walked_id, pet_id: ace_id, desired_frequency: 172800000 },
 			{ pack_activity_id: bathed_id, pet_id: ace_id },
 			{ pack_activity_id: groomed_id, pet_id: ace_id },
 			{ pack_activity_id: brush_teeth_id, pet_id: ace_id }
@@ -86,8 +86,8 @@ async function seed_db() {
 	const cooper_logs = await db.insert(pet_activity).values([
 		{ pack_activity_id: outside_id, pet_id: cooper_id },
 		{ pack_activity_id: fed_id, pet_id: cooper_id },
-		{ pack_activity_id: meds_id, pet_id: cooper_id, daily_max: 1 },
-		{ pack_activity_id: walked_id, pet_id: cooper_id, tracking: false },
+		{ pack_activity_id: meds_id, pet_id: cooper_id },
+		{ pack_activity_id: walked_id, pet_id: cooper_id },
 		{ pack_activity_id: bathed_id, pet_id: cooper_id },
 		{ pack_activity_id: groomed_id, pet_id: cooper_id },
 		{ pack_activity_id: brush_teeth_id, pet_id: cooper_id, tracking: false }

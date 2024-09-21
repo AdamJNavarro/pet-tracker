@@ -1,1 +1,0 @@
-ALTER TABLE "pet_logs" ADD COLUMN "tracking" boolean DEFAULT true NOT NULL;
