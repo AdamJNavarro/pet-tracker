@@ -1,19 +1,50 @@
 import { eq, sql } from 'drizzle-orm';
 import { db } from '../../hooks.server';
-import { pack, pack_activity, pet, pet_log } from './schema';
+import { pack, pack_activity, pet, pet_activity, pet_activity_log } from './schema';
 
 export type Pack = typeof pack.$inferSelect;
 export type Pet = typeof pet.$inferSelect;
 export type PackActivity = typeof pack_activity.$inferSelect;
-export type PetLog = typeof pet_log.$inferSelect;
+export type PetActivity = typeof pet_activity.$inferSelect;
+export type PetActivityLog = typeof pet_activity_log.$inferSelect;
 
+export interface FullPet extends Pet {
+	activities: FullPetActivity[];
+}
+
+export interface FullPetActivity extends PetActivity {
+	logs: PetActivityLog[];
+}
 export interface FullPackActivity extends PackActivity {
-	logs: PetLog[];
+	pet_activities: FullPetActivity[];
 }
 
 export interface FullPack extends Pack {
 	activities: FullPackActivity[];
 	pets: Pet[];
+}
+
+interface FindPetActivitiesArgs {
+	pet_id: number;
+}
+
+export async function find_pet_activities({ pet_id }: FindPetActivitiesArgs): Promise<FullPet> {
+	const data = await db.query.pet.findFirst({
+		where: eq(pet.id, pet_id),
+		with: {
+			activities: {
+				orderBy: (activities, { asc }) => [asc(activities.id)],
+				with: {
+					logs: {
+						limit: 10,
+						orderBy: (logs, { desc }) => [desc(logs.id)]
+					}
+				}
+			}
+		}
+	});
+	if (!data) throw new Error('Pet Activities not found');
+	return data;
 }
 
 export async function find_pack(): Promise<FullPack> {
@@ -22,8 +53,14 @@ export async function find_pack(): Promise<FullPack> {
 		with: {
 			activities: {
 				with: {
-					logs: {
-						orderBy: (logs, { asc }) => [asc(logs.id)]
+					pet_activities: {
+						orderBy: (pet_activities, { asc }) => [asc(pet_activities.id)],
+						with: {
+							logs: {
+								limit: 10,
+								orderBy: (logs, { desc }) => [desc(logs.id)]
+							}
+						}
 					}
 				},
 				where: eq(pack_activity.tracking, true),
@@ -38,35 +75,30 @@ export async function find_pack(): Promise<FullPack> {
 	return data;
 }
 
-interface UpdatePetLogArgs {
-	id: number;
+interface CreatePetActivityLog {
+	activity_id: number;
+	pet_id: number;
 	time_stamp: string;
 }
 
-export async function update_pet_log({ id, time_stamp }: UpdatePetLogArgs) {
+export async function create_pet_activity_log({
+	activity_id,
+	pet_id,
+	time_stamp
+}: CreatePetActivityLog) {
 	try {
-		await db
-			.update(pet_log)
-			.set({
-				fallback_timestamp: sql`${pet_log.completed_at}`,
-				completed_at: time_stamp
-			})
-			.where(eq(pet_log.id, id))
-			.returning();
+		await db.insert(pet_activity_log).values({ activity_id, time_stamp, pet_id }).returning();
 	} catch (e) {
-		console.log('UPL Err', e);
-		throw new Error('Update Pet Log Failed');
+		console.log(' Err', e);
+		throw new Error('Create Pet Log Failed');
 	}
 }
 
-export async function undo_pet_log_completed_at({ id }: { id: number }) {
+export async function delete_pet_activity_log(log_id: number) {
 	try {
-		await db
-			.update(pet_log)
-			.set({ completed_at: sql`${pet_log.fallback_timestamp}` })
-			.where(eq(pet_log.id, id))
-			.returning();
-	} catch (error) {
-		throw new Error('Undo Error');
+		await db.delete(pet_activity_log).where(eq(pet_activity_log.id, log_id)).returning();
+	} catch (e) {
+		console.log(' Err', e);
+		throw new Error('Delete Pet Log Failed');
 	}
 }

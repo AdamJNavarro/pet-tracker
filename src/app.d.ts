@@ -1,5 +1,5 @@
 // See https://kit.svelte.dev/docs/types#app
-
+import 'unplugin-icons/types/svelte';
 import type { DrizzleClient } from './hooks.server';
 
 // for information about these interfaces

@@ -12,9 +12,9 @@ Sentry.init({
 	tracesSampleRate: 1
 });
 
-if (!env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+if (!env.DB_URL) throw new Error('DB_URL is not set');
 
-const client = postgres(env.DATABASE_URL);
+const client = postgres(env.DB_URL);
 
 export const db = drizzle(client, { schema });
 export type DrizzleClient = typeof db;
