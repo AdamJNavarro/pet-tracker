@@ -22,6 +22,7 @@
 		"@iconify/json": "^2.2.246",
 		"@sveltejs/adapter-auto": "^3.2.4",
 		"@sveltejs/adapter-netlify": "^4.3.3",
+		"@sveltejs/enhanced-img": "^0.3.8",
 		"@sveltejs/kit": "^2.5.24",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/node": "^22.5.3",

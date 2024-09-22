@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PetActivity from '$lib/PetActivity.svelte';
+	import PetHeader from '$lib/PetHeader.svelte';
 	import RowHeader from '$lib/RowHeader.svelte';
 
 	export let data;
@@ -11,7 +12,7 @@
 		<RowHeader icon_name="dog_head" label="Navarros" />
 		{#each pack.pets as pet (pet.id)}
 			<div class="pet_container">
-				{pet.name}
+				<PetHeader {pet} />
 			</div>
 		{/each}
 	</div>
@@ -64,10 +65,6 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		font-size: var(--fs-m);
-		font-weight: 600;
-		text-transform: capitalize;
-		color: var(--color-fg);
 	}
 
 	.log_container {
