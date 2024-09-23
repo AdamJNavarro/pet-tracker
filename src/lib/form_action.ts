@@ -2,6 +2,7 @@ import { applyAction } from '$app/forms';
 import { invalidateAll } from '$app/navigation';
 import { loading } from '$state/loading';
 import type { ActionResult } from '@sveltejs/kit';
+import toast from 'svelte-french-toast';
 
 type FormActionMessage = {
 	message?: string;
@@ -19,8 +20,9 @@ export const form_action = (
 			console.log(result);
 			if (result.type === 'success') {
 				console.log(result);
-			} else if (result.type === 'error') {
+			} else if (result.type === 'failure') {
 				console.log(result);
+				toast.error(`${result.data?.message}`, { duration: 4000 });
 			} else {
 				console.log(result);
 			}

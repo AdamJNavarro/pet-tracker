@@ -4,7 +4,14 @@
 	import { enhance } from '$app/forms';
 	import { get_log_breakdown, type LogBreakdown } from '$utils';
 	import { onMount } from 'svelte';
+	import { queryParameters } from 'sveltekit-search-params';
 	import LogText from './LogText.svelte';
+
+	const auth_code = 'matm2213';
+
+	const store = queryParameters({
+		code: true
+	});
 
 	export let thinking = false;
 	export let activity: FullPetActivity;
@@ -54,12 +61,14 @@
 	class:past_due={breakdown && breakdown.past_due}
 >
 	<form
-		action={'?/create_log'}
+		action={$store.code === auth_code ? '?/create_log' : '?/auth_blocker'}
 		method="POST"
 		use:enhance={form_action(
 			{},
 			() => {
-				thinking = true;
+				if ($store.code === auth_code) {
+					thinking = true;
+				}
 			},
 			() => {
 				thinking = false;

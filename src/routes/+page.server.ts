@@ -11,6 +11,11 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
+	async auth_blocker() {
+		return fail(400, {
+			message: 'Only Navarros can update logs.'
+		});
+	},
 	async create_log({ request }) {
 		const time_stamp = new Date().toISOString();
 		const data = await request.formData();
