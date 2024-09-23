@@ -18,13 +18,13 @@
 
 	.main_text {
 		font-size: var(--fs-s);
-		color: var(--color-fg);
+		color: var(--color-on-surface);
 		font-weight: 600;
 	}
 
 	.sub_text {
 		font-size: var(--fs-xs);
-		color: var(--color-fg-subtle);
+		color: var(--color-on-surface-subtle);
 		font-weight: 500;
 	}
 </style>

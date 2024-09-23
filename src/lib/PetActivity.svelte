@@ -49,7 +49,7 @@
 </script>
 
 <div
-	class="container"
+	class="log_surface"
 	class:needs_completing={breakdown && breakdown.needs_completing}
 	class:past_due={breakdown && breakdown.past_due}
 >
@@ -81,15 +81,6 @@
 </div>
 
 <style>
-	.container {
-		display: flex;
-		flex: 1;
-		width: 100%;
-		border-top: 0.25px;
-		border-color: var(--color-line);
-		border-top-style: solid;
-	}
-
 	.needs_completing {
 		background-color: var(--color-warning-subtle);
 	}

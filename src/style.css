@@ -3,19 +3,28 @@
 	--fs-s: clamp(0.875rem, 1.035294vi + 0.62rem, 1.32rem);
 	--fs-m: clamp(1.55rem, 1.835295vi + 1.1rem, 2.34rem);
 
-	--border-size: 0.5px;
+	--shadow-color: 237deg 21% 58%;
+	--shadow-elevation-low: -0.5px 0.5px 0.7px hsl(var(--shadow-color) / 0.52),
+		-0.8px 0.7px 1px -1.9px hsl(var(--shadow-color) / 0.4),
+		-2.1px 1.9px 2.7px -3.7px hsl(var(--shadow-color) / 0.29);
+	--shadow-elevation-medium: -0.5px 0.5px 0.7px hsl(var(--shadow-color) / 0.43),
+		-1px 0.9px 1.3px -0.9px hsl(var(--shadow-color) / 0.38),
+		-2.2px 2px 2.8px -1.9px hsl(var(--shadow-color) / 0.32),
+		-5px 4.5px 6.3px -2.8px hsl(var(--shadow-color) / 0.26),
+		-10.4px 9.3px 13.1px -3.7px hsl(var(--shadow-color) / 0.2);
 
-	--activity-col-width: 20%;
+	--spacing: 20px;
+	--border-radius: 16px;
 
 	--black: #000000;
 
-	--color-surface: light-dark(#211348, var(--black));
-	--color-on-surface: light-dark(#e5e6f9, #6b57fb);
-	--color-bg: light-dark(#fff, #0a0e14);
-	--color-fg: light-dark(var(--black), #fff);
-	--color-fg-subtle: light-dark(#3d3d3d, #eff2ff);
-	--color-line: light-dark(#bfc4ff, #3d3d3d);
-	--color-disabled: light-dark(#fafafa, #080b10);
+	--color-bg: light-dark(#e5e6f9, #0a0e14);
+	--color-primary: light-dark(#211348, #211348);
+	--color-on-primary: light-dark(#9d9bff, #9d9bff);
+	--color-surface: light-dark(#fff, var(--black));
+	--color-on-surface: light-dark(var(--black), #fff);
+	--color-surface-placeholder: light-dark(#dcdef8, #dcdef8);
+	--color-on-surface-subtle: light-dark(#3d3d3d, #eff2ff);
 	--color-danger-subtle: light-dark(#fde6e7, #1f0307);
 	--color-warning-subtle: light-dark(#fef3c7, #fef3c7);
 }
@@ -42,4 +51,19 @@ body {
 
 button {
 	cursor: pointer;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.log_surface {
+	background-color: var(--color-surface);
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow-elevation-medium);
 }
