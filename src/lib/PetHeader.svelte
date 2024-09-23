@@ -15,20 +15,23 @@
 
 <style lang="postcss">
 	.container {
-		background-color: var(--color-bg);
+		background-color: var(--color-primary);
 		display: flex;
 		flex: 1;
 		align-items: center;
 		justify-content: center;
 		font-size: var(--fs-m);
 		text-transform: capitalize;
-		color: var(--color-fg);
+		color: var(--color-bg);
+		border-radius: var(--border-radius);
+		box-shadow: var(--shadow-elevation-medium);
 	}
 
 	.pet_avatar {
-		height: 64px;
-		width: 64px;
-		margin-right: 16px;
+		height: 56px;
+		width: 56px;
+		margin-right: var(--spacing);
 		border-radius: 9999px;
+		margin-top: 8px;
 	}
 </style>
