@@ -5,6 +5,11 @@ import { defineConfig } from 'vite';
 import Icons from 'unplugin-icons/vite';
 
 export default defineConfig({
+	server: {
+		port: 5175,
+		strictPort: true,
+		open: '/?code=124'
+	},
 	plugins: [
 		sentrySvelteKit({
 			sourceMapsUploadOptions: {
