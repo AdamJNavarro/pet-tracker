@@ -57,8 +57,8 @@
 
 <div
 	class="log_surface"
-	class:needs_completing={breakdown && breakdown.needs_completing}
-	class:past_due={breakdown && breakdown.past_due}
+	class:needs_completing={!thinking && breakdown && breakdown.needs_completing}
+	class:past_due={!thinking && breakdown && breakdown.past_due}
 >
 	<form
 		action={$store.code === auth_code ? '?/create_log' : '?/auth_blocker'}
