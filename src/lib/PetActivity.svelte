@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { env } from '$env/dynamic/private';
+	import { PUBLIC_AUTH_CODE } from '$env/static/public';
 	import type { FullPetActivity } from '$db/methods';
 	import { form_action } from './form_action';
 	import { enhance } from '$app/forms';
@@ -8,13 +8,12 @@
 	import { queryParameters } from 'sveltekit-search-params';
 	import LogText from './LogText.svelte';
 
-	const auth_code = env.AUTH_CODE;
 
 	const store = queryParameters({
 		code: true
 	});
 
-	export const thinking = false;
+	export let thinking = false;
 	export let activity: FullPetActivity;
 
 	let breakdown: LogBreakdown | null = null;
@@ -64,12 +63,12 @@
 	class:past_due={!thinking && breakdown && breakdown.past_due}
 >
 	<form
-		action={$store.code === auth_code ? '?/create_log' : '?/auth_blocker'}
+		action={$store.code === PUBLIC_AUTH_CODE ? '?/create_log' : '?/auth_blocker'}
 		method="POST"
 		use:enhance={form_action(
 			{},
 			() => {
-				if ($store.code === auth_code) {
+				if ($store.code === PUBLIC_AUTH_CODE) {
 					thinking = true;
 				}
 			},
