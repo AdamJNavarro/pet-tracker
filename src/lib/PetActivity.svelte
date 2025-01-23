@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PUBLIC_AUTH_CODE } from '$env/static/public';
 	import type { FullPetActivity } from '$db/methods';
 	import { form_action } from './form_action';
 	import { enhance } from '$app/forms';
@@ -7,7 +8,6 @@
 	import { queryParameters } from 'sveltekit-search-params';
 	import LogText from './LogText.svelte';
 
-	const auth_code = 'matm2213';
 
 	const store = queryParameters({
 		code: true
@@ -28,11 +28,13 @@
 	}
 
 	$: if (daily_max && logs.length >= daily_max) {
-		let current_date = new Date().toISOString();
+		const current_date = new Date().toISOString();
 
-		let day_substr = current_date.substring(0, current_date.indexOf('T'));
+		const day_substr = current_date.substring(0, current_date.indexOf('T'));
 
-		let times_completed_today = logs.filter((log) => log.time_stamp.startsWith(day_substr)).length;
+		const times_completed_today = logs.filter((log) =>
+			log.time_stamp.startsWith(day_substr)
+		).length;
 
 		if (times_completed_today >= daily_max) {
 			should_prompt = true;
@@ -61,12 +63,12 @@
 	class:past_due={!thinking && breakdown && breakdown.past_due}
 >
 	<form
-		action={$store.code === auth_code ? '?/create_log' : '?/auth_blocker'}
+		action={$store.code === PUBLIC_AUTH_CODE ? '?/create_log' : '?/auth_blocker'}
 		method="POST"
 		use:enhance={form_action(
 			{},
 			() => {
-				if ($store.code === auth_code) {
+				if ($store.code === PUBLIC_AUTH_CODE) {
 					thinking = true;
 				}
 			},
