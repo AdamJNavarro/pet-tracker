@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@sentry/sveltekit": "^8.28.0",
 		"drizzle-orm": "^0.33.0",
-		"postgres": "^3.4.4",
+		"postgres": "^3.4.5",
 		"svelte-french-toast": "^1.2.0",
 		"sveltekit-search-params": "^3.0.0"
 	}
