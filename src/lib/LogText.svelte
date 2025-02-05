@@ -1,6 +1,5 @@
-<script lant="ts">
-	export let main_text;
-	export let sub_text;
+<script lang="ts">
+	let { main_text, sub_text } = $props();
 </script>
 
 <div class="container">

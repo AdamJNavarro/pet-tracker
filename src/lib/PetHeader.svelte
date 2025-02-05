@@ -1,14 +1,18 @@
 <script lang="ts">
 	import type { Pet } from '$db/methods';
 
-	export let pet: Pet;
+	interface Props {
+		pet: Pet;
+	}
+
+	let { pet }: Props = $props();
 </script>
 
 <div class="container">
 	{#if pet.name === 'ace'}
-		<enhanced:img src="/static/ace.jpg" alt="A photo of Ace." class="pet_avatar" />
+		<enhanced:img src="/static/ace.jpg" alt="Ace." class="pet_avatar" />
 	{:else}
-		<enhanced:img src="/static/cooper.jpg" alt="A photo of Cooper." class="pet_avatar" />
+		<enhanced:img src="/static/cooper.jpg" alt="Cooper." class="pet_avatar" />
 	{/if}
 	{pet.name}
 </div>

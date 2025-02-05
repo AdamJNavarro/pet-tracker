@@ -3,13 +3,13 @@
 	import PetHeader from '$lib/PetHeader.svelte';
 	import RowHeader from '$lib/RowHeader.svelte';
 
-	export let data;
-	$: ({ pack } = data);
+	let { data } = $props();
+	let { pack } = $derived(data);
 </script>
 
 <div class="layout">
 	<div class="flex-row">
-		<div class="row-header-placeholder" />
+		<div class="row-header-placeholder"></div>
 		{#each pack.pets as pet (pet.id)}
 			<PetHeader {pet} />
 		{/each}
@@ -21,7 +21,7 @@
 				{#if pet_activity.tracking}
 					<PetActivity activity={pet_activity} />
 				{:else}
-					<div class="log_surface tracking_off" />
+					<div class="log_surface tracking_off"></div>
 				{/if}
 			{/each}
 		</div>
