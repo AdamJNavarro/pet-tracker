@@ -19,13 +19,13 @@
 		"db-prod-studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
-		"@iconify/json": "^2.2.301",
+		"@iconify/json": "^2.2.303",
 		"@sveltejs/adapter-auto": "^3.2.4",
 		"@sveltejs/adapter-netlify": "^4.3.3",
 		"@sveltejs/enhanced-img": "^0.3.8",
 		"@sveltejs/kit": "^2.5.24",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
-		"@types/node": "^22.12.0",
+		"@types/node": "^22.13.1",
 		"drizzle-kit": "^0.24.0",
 		"postcss": "^8.5.1",
 		"postcss-preset-env": "^10.1.3",
