@@ -44,7 +44,7 @@
 		"@sentry/sveltekit": "^8.54.0",
 		"drizzle-orm": "^0.39.1",
 		"postgres": "^3.4.5",
-		"svelte-french-toast": "^1.2.0",
+		"svelte-hot-french-toast": "^1.0.0",
 		"sveltekit-search-params": "^3.0.0"
 	}
 }
