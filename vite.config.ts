@@ -14,7 +14,8 @@ export default defineConfig({
 		sentrySvelteKit({
 			sourceMapsUploadOptions: {
 				org: 'momento',
-				project: 'pet-tracker'
+				project: 'pet-tracker',
+				authToken: process.env.SENTRY_AUTH_TOKEN
 			}
 		}),
 		enhancedImages(),

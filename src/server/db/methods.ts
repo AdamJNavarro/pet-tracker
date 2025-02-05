@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { db } from '../../hooks.server';
 import { pack, pack_activity, pet, pet_activity, pet_activity_log } from './schema';
 
