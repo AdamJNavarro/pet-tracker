@@ -41,7 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sentry/sveltekit": "^8.28.0",
+		"@sentry/sveltekit": "^8.54.0",
 		"drizzle-orm": "^0.39.1",
 		"postgres": "^3.4.5",
 		"svelte-french-toast": "^1.2.0",
