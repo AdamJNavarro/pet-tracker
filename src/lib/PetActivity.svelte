@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { PUBLIC_AUTH_CODE } from '$env/static/public';
 	import type { FullPetActivity } from '$db/methods';
 	import { form_action } from './form_action';
@@ -13,33 +15,41 @@
 		code: true
 	});
 
-	export let thinking = false;
-	export let activity: FullPetActivity;
-
-	let breakdown: LogBreakdown | null = null;
-	let should_prompt = false;
-
-	$: ({ pet_id, daily_max, desired_frequency, logs } = activity);
-
-	$: latest_log = logs.length > 0 ? logs[0] : null;
-
-	$: if (latest_log) {
-		breakdown = get_log_breakdown({ time_stamp: latest_log.time_stamp, desired_frequency });
+	interface Props {
+		thinking?: boolean;
+		activity: FullPetActivity;
 	}
 
-	$: if (daily_max && logs.length >= daily_max) {
-		const current_date = new Date().toISOString();
+	let { thinking = $bindable(false), activity }: Props = $props();
 
-		const day_substr = current_date.substring(0, current_date.indexOf('T'));
+	let breakdown: LogBreakdown | null = $state(null);
+	let should_prompt = $state(false);
 
-		const times_completed_today = logs.filter((log) =>
-			log.time_stamp.startsWith(day_substr)
-		).length;
+	let { pet_id, daily_max, desired_frequency, logs } = $derived(activity);
 
-		if (times_completed_today >= daily_max) {
-			should_prompt = true;
+	let latest_log = $derived(logs.length > 0 ? logs[0] : null);
+
+	run(() => {
+		if (latest_log) {
+			breakdown = get_log_breakdown({ time_stamp: latest_log.time_stamp, desired_frequency });
 		}
-	}
+	});
+
+	run(() => {
+		if (daily_max && logs.length >= daily_max) {
+			const current_date = new Date().toISOString();
+
+			const day_substr = current_date.substring(0, current_date.indexOf('T'));
+
+			const times_completed_today = logs.filter((log) =>
+				log.time_stamp.startsWith(day_substr)
+			).length;
+
+			if (times_completed_today >= daily_max) {
+				should_prompt = true;
+			}
+		}
+	});
 
 	onMount(() => {
 		const rerun_breakdown_interval = setInterval(

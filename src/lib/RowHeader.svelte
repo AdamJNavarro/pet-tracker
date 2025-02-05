@@ -9,8 +9,12 @@
 	import ToothBrushIcon from 'virtual:icons/game-icons/toothbrush';
 	import DogBowlIcon from 'virtual:icons/game-icons/dog-bowl';
 	import ClipboardCheckmarkIcon from 'virtual:icons/fluent/clipboard-checkmark-24-regular';
-	export let icon_name: IconName | null;
-	export let label: string;
+	interface Props {
+		icon_name: IconName | null;
+		label: string;
+	}
+
+	let { icon_name, label }: Props = $props();
 	let style_str = 'color:var(--color-on-primary); height:36px; width:36px;';
 </script>
 

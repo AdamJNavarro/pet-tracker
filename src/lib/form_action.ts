@@ -2,7 +2,7 @@ import { applyAction } from '$app/forms';
 import { invalidateAll } from '$app/navigation';
 import { loading } from '$state/loading';
 import type { ActionResult } from '@sveltejs/kit';
-import toast from 'svelte-french-toast';
+import toast from 'svelte-hot-french-toast';
 
 type FormActionMessage = {
 	message?: string;
