@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { applyAction } from '$app/forms';
 import { invalidateAll } from '$app/navigation';
 import { loading } from '$state/loading';

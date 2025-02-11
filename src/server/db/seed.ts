@@ -1,21 +1,6 @@
 import { db } from '../../hooks.server';
 import { pack, pack_activity, pet, pet_activity } from './schema';
 
-const ace_timestamps = {
-	outside: '2024-09-21T15:34:49.298Z',
-	meds: '2024-09-21T13:12:11.765Z',
-	bathed: '2024-09-18T16:45:06.663Z',
-	walked: '2024-09-18T13:22:42.816Z',
-	groomed: '2024-08-28T18:09:53.162Z'
-};
-
-const cooper_timestamps = {
-	outside: '2024-09-21T15:34:48.285Z',
-	meds: '2024-09-21T09:22:17.190Z',
-	bathed: '2024-09-18T16:45:07.375Z',
-	groomed: '2024-08-21T19:30:09.131Z'
-};
-
 async function seed_db() {
 	// Create Pack
 	const packs = await db.insert(pack).values({ name: 'navarros' }).returning();
@@ -70,7 +55,7 @@ async function seed_db() {
 		.returning();
 	const brush_teeth_id = brush_teeth_activity[0].id;
 
-	const ace_logs = await db
+	await db
 		.insert(pet_activity)
 		.values([
 			{ pack_activity_id: outside_id, pet_id: ace_id },
@@ -83,7 +68,7 @@ async function seed_db() {
 		])
 		.returning();
 
-	const cooper_logs = await db.insert(pet_activity).values([
+	await db.insert(pet_activity).values([
 		{ pack_activity_id: outside_id, pet_id: cooper_id },
 		{ pack_activity_id: fed_id, pet_id: cooper_id },
 		{ pack_activity_id: meds_id, pet_id: cooper_id },

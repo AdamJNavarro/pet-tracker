@@ -10,7 +10,6 @@
 	import { queryParameters } from 'sveltekit-search-params';
 	import LogText from './LogText.svelte';
 
-
 	const store = queryParameters({
 		code: true
 	});
@@ -23,7 +22,7 @@
 	let { thinking = $bindable(false), activity }: Props = $props();
 
 	let breakdown: LogBreakdown | null = $state(null);
-	let should_prompt = $state(false);
+	// let should_prompt = $state(false);
 
 	let { pet_id, daily_max, desired_frequency, logs } = $derived(activity);
 
@@ -46,7 +45,7 @@
 			).length;
 
 			if (times_completed_today >= daily_max) {
-				should_prompt = true;
+				// should_prompt = true;
 			}
 		}
 	});
