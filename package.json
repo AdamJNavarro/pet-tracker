@@ -7,6 +7,7 @@
 		"build": "vite build",
 		"preview": "vite preview --host",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:ci": "svelte-kit sync && svelte-check --threshold error --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"eslint": "eslint .",
 		"lint": "prettier --check . && eslint .",
