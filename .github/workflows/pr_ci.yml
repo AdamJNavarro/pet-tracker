@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+env:
+  PUBLIC_AUTH_CODE: ${{ secrets.PUBLIC_AUTH_CODE }}
+  DB_URL: ${{ secrets.DB_URL }}
+
 jobs:
   checks:
     runs-on: ubuntu-latest
