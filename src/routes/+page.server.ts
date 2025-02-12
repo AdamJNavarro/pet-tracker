@@ -2,8 +2,10 @@ import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { find_pack, create_pet_activity_log, delete_pet_activity_log } from '$db/methods';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ depends }) => {
 	const pack = await find_pack();
+
+	depends('app:index_page');
 
 	return {
 		pack
