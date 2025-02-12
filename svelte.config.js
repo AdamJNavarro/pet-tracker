@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-netlify';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import {sveltePreprocess} from 'svelte-preprocess';
+import { sveltePreprocess } from 'svelte-preprocess';
 import postcssPresetEnv from 'postcss-preset-env';
 
 /** @type {import('@sveltejs/kit').Config} */

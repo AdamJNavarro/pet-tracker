@@ -1,10 +1,25 @@
 <script lang="ts">
+	import { invalidate } from '$app/navigation';
 	import PetActivity from '$lib/PetActivity.svelte';
 	import PetHeader from '$lib/PetHeader.svelte';
 	import RowHeader from '$lib/RowHeader.svelte';
+	import { onMount } from 'svelte';
 
 	let { data } = $props();
 	let { pack } = $derived(data);
+
+	onMount(() => {
+		const rerun_load_fx = setInterval(
+			() => {
+				invalidate('app:index_page');
+			},
+			Math.floor(60000 * 5)
+		); // time in mins
+
+		return () => {
+			clearInterval(rerun_load_fx);
+		};
+	});
 </script>
 
 <div class="layout">

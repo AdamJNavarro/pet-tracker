@@ -2,8 +2,10 @@ import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { find_pack, create_pet_activity_log, delete_pet_activity_log } from '$db/methods';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ depends }) => {
 	const pack = await find_pack();
+
+	depends('app:index_page');
 
 	return {
 		pack
@@ -29,7 +31,7 @@ export const actions: Actions = {
 				return {
 					message: 'Pet Log Updated'
 				};
-			} catch (error) {
+			} catch {
 				return fail(400, {
 					message: 'Update Pet Log Failed'
 				});
@@ -39,7 +41,6 @@ export const actions: Actions = {
 	async delete_log({ request }) {
 		const data = await request.formData();
 		const raw_log_id = data.get('log_id');
-		console.log('raw_log_id', raw_log_id);
 		if (raw_log_id) {
 			const log_id = parseInt(raw_log_id.toString());
 			try {
@@ -47,7 +48,7 @@ export const actions: Actions = {
 				return {
 					message: 'Pet Log Deleted'
 				};
-			} catch (error) {
+			} catch {
 				return fail(400, {
 					message: 'Delete Pet Log Failed'
 				});

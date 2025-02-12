@@ -4,15 +4,18 @@
 	--fs-m: clamp(1.55rem, 1.835295vi + 1.1rem, 2.34rem);
 
 	--shadow-color: 237deg 21% 58%;
-	--shadow-elevation-low: 0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.69),
+	--shadow-elevation-low:
+		0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.69),
 		0.4px 0.4px 0.4px -2.5px hsl(var(--shadow-color) / 0.46),
 		1.3px 1.3px 1.4px -5px hsl(var(--shadow-color) / 0.23);
-	--shadow-elevation-medium: 0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.58),
+	--shadow-elevation-medium:
+		0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.58),
 		0.4px 0.4px 0.4px -1.2px hsl(var(--shadow-color) / 0.46),
 		1.1px 1.1px 1.2px -2.5px hsl(var(--shadow-color) / 0.35),
 		2.9px 2.8px 3px -3.7px hsl(var(--shadow-color) / 0.23),
 		6.4px 6.3px 6.7px -5px hsl(var(--shadow-color) / 0.12);
-	--shadow-elevation-high: 0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.54),
+	--shadow-elevation-high:
+		0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.54),
 		0.4px 0.4px 0.4px -0.6px hsl(var(--shadow-color) / 0.48),
 		0.7px 0.7px 0.7px -1.1px hsl(var(--shadow-color) / 0.43),
 		1.5px 1.5px 1.6px -1.7px hsl(var(--shadow-color) / 0.38),

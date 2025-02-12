@@ -1,5 +1,6 @@
-const postcssPresetEnv = require('postcss-preset-env');
+import postcssPresetEnv from 'postcss-preset-env';
 
+/** @type {import('postcss-load-config').Config} */
 const config = {
 	plugins: [
 		postcssPresetEnv({
@@ -14,4 +15,4 @@ const config = {
 	]
 };
 
-module.exports = config;
+export default config;
