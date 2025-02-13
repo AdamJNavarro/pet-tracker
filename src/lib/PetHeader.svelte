@@ -10,9 +10,9 @@
 
 <div class="container">
 	{#if pet.name === 'ace'}
-		<enhanced:img src="/static/ace.jpg" alt="Ace." class="pet_avatar" />
+		<enhanced:img src="/static/ace.jpg" alt="Ace." class="pet-avatar" />
 	{:else}
-		<enhanced:img src="/static/cooper.jpg" alt="Cooper." class="pet_avatar" />
+		<enhanced:img src="/static/cooper.jpg" alt="Cooper." class="pet-avatar" />
 	{/if}
 	{pet.name}
 </div>
@@ -31,7 +31,7 @@
 		box-shadow: var(--shadow-elevation-medium);
 	}
 
-	.pet_avatar {
+	.pet-avatar {
 		height: 56px;
 		width: 56px;
 		margin-right: var(--spacing);

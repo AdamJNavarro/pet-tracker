@@ -3,8 +3,8 @@
 </script>
 
 <div class="container">
-	<div class="main_text">{main_text}</div>
-	<div class="sub_text">{sub_text}</div>
+	<div class="main-text">{main_text}</div>
+	<div class="sub-text">{sub_text}</div>
 </div>
 
 <style>
@@ -15,13 +15,13 @@
 		justify-content: center;
 	}
 
-	.main_text {
+	.main-text {
 		font-size: var(--fs-s);
 		color: var(--color-on-surface);
 		font-weight: 600;
 	}
 
-	.sub_text {
+	.sub-text {
 		font-size: var(--fs-xs);
 		color: var(--color-on-surface-subtle);
 		font-weight: 500;

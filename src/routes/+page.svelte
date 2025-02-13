@@ -36,7 +36,7 @@
 				{#if pet_activity.tracking}
 					<PetActivity activity={pet_activity} />
 				{:else}
-					<div class="log_surface tracking_off"></div>
+					<div class="log-surface tracking-off"></div>
 				{/if}
 			{/each}
 		</div>
@@ -53,6 +53,7 @@
 		max-width: 100dvw;
 		background-color: var(--color-bg);
 		gap: var(--spacing);
+
 		> div:first-child {
 			padding-top: var(--spacing);
 		}
@@ -77,7 +78,8 @@
 		justify-content: center;
 		width: 200px;
 	}
-	.tracking_off {
+
+	.tracking-off {
 		background-color: var(--color-surface-placeholder);
 		box-shadow: none;
 	}

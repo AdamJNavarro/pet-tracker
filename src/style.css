@@ -1,8 +1,10 @@
 :root {
-	--fs-xs: clamp(0.75rem, 0.894118vi + 0.53rem, 1.13rem);
-	--fs-s: clamp(0.875rem, 1.035294vi + 0.62rem, 1.32rem);
-	--fs-m: clamp(1.55rem, 1.835295vi + 1.1rem, 2.34rem);
+	/* TYPOGRAPHY */
+	--fs-xs: clamp(0.75rem, 0.8941vi + 0.53rem, 1.13rem);
+	--fs-s: clamp(0.875rem, 1.0352vi + 0.62rem, 1.32rem);
+	--fs-m: clamp(1.55rem, 1.8352vi + 1.1rem, 2.34rem);
 
+	/* SHADOWS */
 	--shadow-color: 237deg 21% 58%;
 	--shadow-elevation-low:
 		0.3px 0.3px 0.3px hsl(var(--shadow-color) / 0.69),
@@ -26,11 +28,12 @@
 		22.6px 22.2px 23.8px -4.4px hsl(var(--shadow-color) / 0.11),
 		32px 31.5px 33.7px -5px hsl(var(--shadow-color) / 0.05);
 
+	/* SPACING */
 	--spacing: 20px;
 	--border-radius: 16px;
 
-	--black: #000000;
-
+	/* COLORS */
+	--black: #000;
 	--color-bg: light-dark(#e5e6f9, #0a0e14);
 	--color-primary: light-dark(#211348, #211348);
 	--color-on-primary: light-dark(#9d9bff, #9d9bff);
@@ -70,7 +73,7 @@ button {
 	visibility: hidden;
 }
 
-.log_surface {
+.log-surface {
 	background-color: var(--color-surface);
 	display: flex;
 	flex: 1;
