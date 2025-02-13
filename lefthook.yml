@@ -1,4 +1,4 @@
 pre-commit:
   commands:
     check:
-      run: npm run lint
+      run: npm run lint && npm run stylelint:css && npm run stylelint:svelte
