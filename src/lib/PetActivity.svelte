@@ -37,10 +37,9 @@
 	<FormWithLoading
 		method="POST"
 		action={$store.code === PUBLIC_AUTH_CODE ? '?/create_log' : '?/auth_blocker'}
-		class="main-container"
 	>
 		{#snippet children({ loading })}
-			<fieldset disabled={loading}>
+			<fieldset class="main-container" disabled={loading}>
 				<button class="timer-button" type="submit">
 					{#if breakdown}
 						<LogText main_text={loading ? '< 1 min' : breakdown.ago_str} sub_text="ago" />
