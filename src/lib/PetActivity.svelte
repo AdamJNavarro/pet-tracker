@@ -30,18 +30,18 @@
 </script>
 
 <div
-	class="log_surface"
-	class:needs_completing={breakdown && breakdown.needs_completing}
-	class:past_due={breakdown && breakdown.past_due}
+	class="log-surface"
+	class:needs-completing={breakdown && breakdown.needs_completing}
+	class:past-due={breakdown && breakdown.past_due}
 >
 	<FormWithLoading
 		method="POST"
 		action={$store.code === PUBLIC_AUTH_CODE ? '?/create_log' : '?/auth_blocker'}
-		class="main_container"
+		class="main-container"
 	>
 		{#snippet children({ loading })}
 			<fieldset disabled={loading}>
-				<button class="timer_button" type="submit">
+				<button class="timer-button" type="submit">
 					{#if breakdown}
 						<LogText main_text={loading ? '< 1 min' : breakdown.ago_str} sub_text="ago" />
 					{:else}
@@ -65,15 +65,16 @@
 		margin: 0;
 		padding: 0;
 	}
-	.needs_completing {
+
+	.needs-completing {
 		background-color: var(--color-warning-subtle);
 	}
 
-	.past_due {
+	.past-due {
 		background-color: var(--color-danger-subtle);
 	}
 
-	.main_container {
+	.main-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -81,7 +82,7 @@
 		flex: 1;
 	}
 
-	.timer_button {
+	.timer-button {
 		background-color: transparent;
 		border: none;
 	}
