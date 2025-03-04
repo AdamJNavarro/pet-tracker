@@ -58,7 +58,6 @@
 	"dependencies": {
 		"drizzle-orm": "^0.40.0",
 		"postgres": "^3.4.5",
-		"svelte-hot-french-toast": "^1.0.0",
 		"sveltekit-search-params": "^3.0.0"
 	}
 }

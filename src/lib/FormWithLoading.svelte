@@ -5,7 +5,6 @@
 	import { invalidateAll } from '$app/navigation';
 	import { loading } from '$state/loading';
 	import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
-	import toast from 'svelte-hot-french-toast';
 
 	let form_loading = $state(false);
 	interface Props {
@@ -26,11 +25,11 @@
 				if (result.type === 'success') {
 					// DO NOTHING
 				} else if (result.type === 'failure') {
-					toast.error(`${result.data?.message}`, { duration: 4000 });
+					alert(result.data?.message);
 				} else if (result.type === 'error') {
-					toast.error(`${result.error.message}`, { duration: 4000 });
+					alert(result.error.message);
 				} else {
-					toast.error(`Something went wrong. Check the console`);
+					alert(`Something went wrong. Check the console`);
 				}
 				await invalidateAll();
 				await applyAction(result);
