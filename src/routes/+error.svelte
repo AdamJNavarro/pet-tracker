@@ -11,5 +11,5 @@
 	<h1>Whoops!</h1>
 	<p>{page.error?.message || 'Something went wrong'}</p>
 
-	<button style="padding:12px;" onclick={run_refresh}>Refresh App</button>
+	<button style="padding:16px;" onclick={run_refresh}>Refresh App</button>
 </div>
