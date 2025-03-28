@@ -23,24 +23,26 @@
 </script>
 
 <div class="layout">
-	<div class="flex-row">
-		<div class="row-header-placeholder"></div>
-		{#each pack.pets as pet (pet.id)}
-			<PetHeader {pet} />
-		{/each}
-	</div>
-	{#each pack.activities as activity (activity.id)}
+	{#if pack}
 		<div class="flex-row">
-			<RowHeader icon_name={activity.icon_name} label={activity.name} />
-			{#each activity.pet_activities as pet_activity (pet_activity.id)}
-				{#if pet_activity.tracking}
-					<PetActivity activity={pet_activity} />
-				{:else}
-					<div class="log-surface tracking-off"></div>
-				{/if}
+			<div class="row-header-placeholder"></div>
+			{#each pack.pets as pet (pet.id)}
+				<PetHeader {pet} />
 			{/each}
 		</div>
-	{/each}
+		{#each pack.activities as activity (activity.id)}
+			<div class="flex-row">
+				<RowHeader icon_name={activity.icon_name} label={activity.name} />
+				{#each activity.pet_activities as pet_activity (pet_activity.id)}
+					{#if pet_activity.tracking}
+						<PetActivity activity={pet_activity} />
+					{:else}
+						<div class="log-surface tracking-off"></div>
+					{/if}
+				{/each}
+			</div>
+		{/each}
+	{/if}
 </div>
 
 <style lang="postcss">

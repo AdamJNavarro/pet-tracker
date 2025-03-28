@@ -47,7 +47,7 @@ export async function find_pet_activities({ pet_id }: FindPetActivitiesArgs): Pr
 	return data;
 }
 
-export async function find_pack(): Promise<FullPack> {
+export async function find_pack(): Promise<FullPack | null> {
 	const data = await db.query.pack.findFirst({
 		where: eq(pack.id, 1),
 		with: {
@@ -71,7 +71,7 @@ export async function find_pack(): Promise<FullPack> {
 			}
 		}
 	});
-	if (!data) throw new Error('Pack not found');
+	if (!data) return null;
 	return data;
 }
 
