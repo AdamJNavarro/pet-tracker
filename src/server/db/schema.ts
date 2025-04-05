@@ -125,3 +125,25 @@ export const pet_activity_log_relations = relations(pet_activity_log, ({ one }) 
 		references: [pet.id]
 	})
 }));
+
+export type Pack = typeof pack.$inferSelect;
+export type Pet = typeof pet.$inferSelect;
+export type PackActivity = typeof pack_activity.$inferSelect;
+export type PetActivity = typeof pet_activity.$inferSelect;
+export type PetActivityLog = typeof pet_activity_log.$inferSelect;
+
+export interface FullPet extends Pet {
+	activities: FullPetActivity[];
+}
+
+export interface FullPetActivity extends PetActivity {
+	logs: PetActivityLog[];
+}
+export interface FullPackActivity extends PackActivity {
+	pet_activities: FullPetActivity[];
+}
+
+export interface FullPack extends Pack {
+	activities: FullPackActivity[];
+	pets: Pet[];
+}

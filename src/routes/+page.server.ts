@@ -1,15 +1,58 @@
-import { fail, type Actions } from '@sveltejs/kit';
+import { error, fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { find_pack, create_pet_activity_log, delete_pet_activity_log } from '$db/methods';
+import { getDbClient } from '$db';
+import { findOrFail } from '$utils/db';
+import { NotFoundError } from '$utils/errors';
+import { eq } from 'drizzle-orm';
+import { pack, pack_activity, pet_activity_log } from '$db/schema';
 
 export const load: PageServerLoad = async ({ depends }) => {
-	const pack = await find_pack();
-
 	depends('app:index_page');
 
-	return {
-		pack
-	};
+	try {
+		const db = getDbClient();
+
+		const data = await findOrFail(
+			() =>
+				db.query.pack.findFirst({
+					where: eq(pack.id, 1),
+					with: {
+						activities: {
+							with: {
+								pet_activities: {
+									orderBy: (pet_activities, { asc }) => [asc(pet_activities.id)],
+									with: {
+										logs: {
+											limit: 10,
+											orderBy: (logs, { desc }) => [desc(logs.id)]
+										}
+									}
+								}
+							},
+							where: eq(pack_activity.tracking, true),
+							orderBy: (activities, { asc }) => [asc(activities.ranking)]
+						},
+						pets: {
+							orderBy: (pets, { asc }) => [asc(pets.id)]
+						}
+					}
+				}),
+			'Pack',
+			1
+		);
+
+		return { pack: data };
+	} catch (err) {
+		// Handle specific errors
+		if (err instanceof NotFoundError) {
+			// SvelteKit built-in error handling
+			throw error(404, { message: err.message });
+		}
+
+		// Other database errors
+		console.error('Error loading data:', err);
+		throw error(500, { message: 'Failed to load db data' });
+	}
 };
 
 export const actions: Actions = {
@@ -27,30 +70,15 @@ export const actions: Actions = {
 			const activity_id = parseInt(raw_activity_id.toString());
 			const pet_id = parseInt(raw_pet_id.toString());
 			try {
-				await create_pet_activity_log({ activity_id, pet_id, time_stamp });
+				const db = getDbClient();
+				await db.insert(pet_activity_log).values({ activity_id, time_stamp, pet_id }).returning();
+
 				return {
 					message: 'Pet Log Updated'
 				};
 			} catch {
 				return fail(400, {
 					message: 'Update Pet Log Failed'
-				});
-			}
-		}
-	},
-	async delete_log({ request }) {
-		const data = await request.formData();
-		const raw_log_id = data.get('log_id');
-		if (raw_log_id) {
-			const log_id = parseInt(raw_log_id.toString());
-			try {
-				await delete_pet_activity_log(log_id);
-				return {
-					message: 'Pet Log Deleted'
-				};
-			} catch {
-				return fail(400, {
-					message: 'Delete Pet Log Failed'
 				});
 			}
 		}

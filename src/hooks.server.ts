@@ -1,19 +1,39 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
-import { env } from '$env/dynamic/private';
+import { NotFoundError, QueryError, DatabaseError } from '$utils/errors';
+import type { Handle, HandleServerError } from '@sveltejs/kit';
 
-import * as schema from '$db/schema';
-import type { Handle } from '@sveltejs/kit';
-import postgres from 'postgres';
+export const handle: Handle = async ({ event, resolve }) => {
+	return await resolve(event);
+};
 
-if (!env.DB_URL) throw new Error('DB_URL is not set');
+export const handleError: HandleServerError = ({ error, event }) => {
+	// Log the error with context
+	console.error(`Error during ${event.request.method} ${event.url.pathname}:`, error);
 
-const client = postgres(env.DB_URL);
+	// Map custom database errors to appropriate HTTP responses
+	if (error instanceof NotFoundError) {
+		return {
+			message: error.message,
+			status: 404
+		};
+	}
 
-export const db = drizzle(client, { schema });
-export type DrizzleClient = typeof db;
+	if (error instanceof QueryError) {
+		return {
+			message: 'A database query error occurred',
+			status: 400
+		};
+	}
 
-export const handle: Handle = async function ({ event, resolve }) {
-	event.locals.db = db;
-	const response = await resolve(event);
-	return response;
+	if (error instanceof DatabaseError) {
+		return {
+			message: 'Database connection issue',
+			status: 503 // Service Unavailable
+		};
+	}
+
+	// Default error handling
+	return {
+		message: 'An unexpected error occurred',
+		status: 500
+	};
 };
