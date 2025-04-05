@@ -18,7 +18,6 @@
 		"db-gen-prod": "drizzle-kit generate",
 		"db-mig-dev": "DB_ENV=dev drizzle-kit migrate",
 		"db-mig-prod": "drizzle-kit migrate",
-		"db-seed": "tsx src/server/db/seed.ts",
 		"db-dev-studio": "DB_ENV=dev drizzle-kit studio",
 		"db-prod-studio": "drizzle-kit studio"
 	},

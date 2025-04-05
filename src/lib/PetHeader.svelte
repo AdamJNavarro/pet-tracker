@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Pet } from '$db/methods';
+	import type { Pet } from '$db/schema';
 
 	interface Props {
 		pet: Pet;
