@@ -13,7 +13,7 @@
 			() => {
 				invalidate('app:index_page');
 			},
-			Math.floor(60000 * 5)
+			Math.floor(60000 * 20)
 		); // time in mins
 
 		return () => {

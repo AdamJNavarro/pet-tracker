@@ -1,7 +1,7 @@
 import { error, fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { getDbClient } from '$db';
-import { findOrFail } from '$utils/db';
+import { findOrFail, safeQuery } from '$utils/db';
 import { NotFoundError } from '$utils/errors';
 import { eq } from 'drizzle-orm';
 import { pack, pack_activity, pet_activity_log } from '$db/schema';
@@ -71,13 +71,16 @@ export const actions: Actions = {
 			const pet_id = parseInt(raw_pet_id.toString());
 			try {
 				const db = getDbClient();
-				await db.insert(pet_activity_log).values({ activity_id, time_stamp, pet_id }).returning();
+				await safeQuery(
+					() => db.insert(pet_activity_log).values({ activity_id, time_stamp, pet_id }).returning(),
+					'Failed to update pet log'
+				);
 
 				return {
 					message: 'Pet Log Updated'
 				};
 			} catch {
-				return fail(400, {
+				return fail(500, {
 					message: 'Update Pet Log Failed'
 				});
 			}
