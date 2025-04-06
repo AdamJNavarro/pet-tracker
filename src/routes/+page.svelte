@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
-	import PetActivity from '$lib/PetActivity.svelte';
-	import PetHeader from '$lib/PetHeader.svelte';
-	import RowHeader from '$lib/RowHeader.svelte';
+	import PetActivity from '$lib/components/PetActivity.svelte';
+	import PetHeader from '$lib/components/PetHeader.svelte';
+	import RowHeader from '$lib/components/RowHeader.svelte';
 	import { onMount } from 'svelte';
 
 	let { data } = $props();

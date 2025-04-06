@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { PUBLIC_AUTH_CODE } from '$env/static/public';
-	import { get_log_breakdown, type LogBreakdown } from '$utils';
+	import { get_log_breakdown, type LogBreakdown } from '$lib/utils';
 	import { queryParameters } from 'sveltekit-search-params';
 	import LogText from './LogText.svelte';
-	import FormWithLoading from '$lib/FormWithLoading.svelte';
-	import type { FullPetActivity } from '$db/schema';
+	import FormWithLoading from './FormWithLoading.svelte';
+	import type { FullPetActivity } from '$server/db/schema';
 
 	const store = queryParameters({
 		code: true
