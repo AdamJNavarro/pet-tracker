@@ -108,11 +108,7 @@ export const pet_activity_log = pgTable(
 		time_stamp: text('time_stamp').notNull(),
 		created_at: timestamp('created_at').defaultNow()
 	},
-	(table) => {
-		return {
-			log_idx: index('pet_activity_log_idx').on(table.id)
-		};
-	}
+	(t) => [index('pet_activity_log_idx').on(t.id)]
 );
 
 export const pet_activity_log_relations = relations(pet_activity_log, ({ one }) => ({
