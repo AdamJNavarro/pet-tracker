@@ -3,7 +3,7 @@
 
 	import { applyAction, enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
-	import { loading } from '$state/loading';
+	import { loading } from '$lib/state/loading';
 	import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 
 	let form_loading = $state(false);

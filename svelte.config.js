@@ -26,10 +26,10 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$assets: 'src/assets',
-			$db: 'src/server/db',
-			$state: 'src/state',
-			$utils: 'src/utils'
+			$: 'src/',
+			$server: 'src/lib/server',
+			$state: 'src/lib/state',
+			$utils: 'src/lib/utils'
 		}
 	}
 };
