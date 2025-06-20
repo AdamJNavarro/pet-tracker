@@ -4,7 +4,7 @@ import { getDbClient } from '$server/db';
 import { findOrFail, safeQuery } from '$utils/db';
 import { NotFoundError } from '$utils/errors';
 import { eq } from 'drizzle-orm';
-import { pack, pack_activity, pet_activity_log } from '$server/db/schema';
+import { pet_activity, pet_activity_log } from '$server/db/schema';
 
 export const load: PageServerLoad = async ({ depends }) => {
 	depends('app:index_page');
@@ -14,36 +14,24 @@ export const load: PageServerLoad = async ({ depends }) => {
 
 		const data = await findOrFail(
 			() =>
-				db.query.pack.findFirst({
-					where: eq(pack.id, 1),
+				db.query.pet.findMany({
 					with: {
 						activities: {
+							where: eq(pet_activity.pack_activity_id, 1),
 							with: {
-								pet_activities: {
-									orderBy: (pet_activities, { asc }) => [asc(pet_activities.id)],
-									limit: 2,
-									with: {
-										logs: {
-											limit: 10,
-											orderBy: (logs, { desc }) => [desc(logs.id)]
-										}
-									}
+								logs: {
+									limit: 10,
+									orderBy: (logs, { desc }) => [desc(logs.id)]
 								}
-							},
-							where: eq(pack_activity.tracking, true),
-							orderBy: (activities, { asc }) => [asc(activities.ranking)]
-						},
-						pets: {
-							orderBy: (pets, { asc }) => [asc(pets.id)],
-							limit: 2
+							}
 						}
-					}
+					},
+					limit: 3
 				}),
-			'Pack',
-			1
+			'Pet'
 		);
 
-		return { pack: data };
+		return { pets: data };
 	} catch (err) {
 		// Handle specific errors
 		if (err instanceof NotFoundError) {
