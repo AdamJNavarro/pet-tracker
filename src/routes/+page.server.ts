@@ -3,8 +3,8 @@ import type { PageServerLoad } from './$types';
 import { getDbClient } from '$server/db';
 import { findOrFail, safeQuery } from '$utils/db';
 import { NotFoundError } from '$utils/errors';
-import { eq } from 'drizzle-orm';
-import { pack, pack_activity, pet_activity_log } from '$server/db/schema';
+import { eq, not } from 'drizzle-orm';
+import { pack, pack_activity, pet_activity, pet_activity_log } from '$server/db/schema';
 
 export const load: PageServerLoad = async ({ depends }) => {
 	depends('app:index_page');
@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ depends }) => {
 							with: {
 								pet_activities: {
 									orderBy: (pet_activities, { asc }) => [asc(pet_activities.id)],
-									limit: 2,
+									where: not(eq(pet_activity.pet_id, 3)),
 									with: {
 										logs: {
 											limit: 10,

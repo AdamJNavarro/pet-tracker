@@ -1,25 +1,25 @@
 <script lang="ts">
-	// import { invalidate } from '$app/navigation';
+	import { invalidate } from '$app/navigation';
 	import PetActivity from '$lib/components/PetActivity.svelte';
 	import PetHeader from '$lib/components/PetHeader.svelte';
 	import RowHeader from '$lib/components/RowHeader.svelte';
-	// import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	let { data } = $props();
 	let { pack } = $derived(data);
 
-	// onMount(() => {
-	// 	const rerun_load_fx = setInterval(
-	// 		() => {
-	// 			invalidate('app:index_page');
-	// 		},
-	// 		Math.floor(60000 * 20)
-	// 	); // time in mins
+	onMount(() => {
+		const rerun_load_fx = setInterval(
+			() => {
+				invalidate('app:index_page');
+			},
+			Math.floor(60000 * 10) // 10 mins
+		); // time in mins
 
-	// 	return () => {
-	// 		clearInterval(rerun_load_fx);
-	// 	};
-	// });
+		return () => {
+			clearInterval(rerun_load_fx);
+		};
+	});
 </script>
 
 <div class="layout">

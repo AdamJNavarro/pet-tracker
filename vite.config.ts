@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
 		server: {
 			port: 5175,
 			strictPort: true,
-			open: `/all-dogs?code=${env.PUBLIC_AUTH_CODE}`
+			open: `/?code=${env.PUBLIC_AUTH_CODE}`
 		},
 		plugins: [
 			enhancedImages(),
